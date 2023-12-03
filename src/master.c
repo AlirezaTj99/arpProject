@@ -8,8 +8,6 @@
 #include <signal.h>
 #include "./../include/inspection_utilities.h"
 
-SHARED_DATA *shared_data;
-
 int spawn(const char *program, char *arg_list[]) {
     pid_t child_pid = fork();
 

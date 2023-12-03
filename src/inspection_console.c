@@ -1,7 +1,5 @@
 #include "./../include/inspection_utilities.h"
 
-SHARED_DATA *shared_data;
-
 int main(int argc, char const *argv[])
 {
     // Utility variable to avoid trigger resize event on launch
@@ -11,8 +9,8 @@ int main(int argc, char const *argv[])
     float ee_x, ee_y;
 
     // Defining the velocities
-    int vx = 0;
-    int vy = 0;
+    float vx = 0;
+    float vy = 0;
 
     // Initialize Shared Memory for the Blackboard
     int shm_fd = shm_open("/my_shared_memory", O_RDWR, 0666);
@@ -79,9 +77,9 @@ int main(int argc, char const *argv[])
                 break;
         }
         // we know that v=(delta)x so we can say in each second we have: ee_x' = ee_x + vx and the same for vy
-        ee_x += vx;
-        ee_y += vy;
-        sleep(1);
+        ee_x += (vx/100);
+        ee_y += (vy/100);
+        usleep(10000);
         
         // Update UI
         update_console_ui(&ee_x, &ee_y, &vx, &vy, blackboard);

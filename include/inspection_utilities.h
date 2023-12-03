@@ -12,13 +12,13 @@
 typedef struct {
 	chtype 	ls, rs, ts, bs, 
 	 	tl, tr, bl, br;
-}HOIST_BORDER;
+}COURT_BORDER;
 
 typedef struct {
 	int startx, starty;
 	int height, width;
-	HOIST_BORDER border;
-}HOIST;
+	COURT_BORDER border;
+} COURT;
 
 typedef struct {
     char message[100];
@@ -27,87 +27,88 @@ typedef struct {
 typedef struct {
     float ee_x;
     float ee_y;
-    int vx;
-    int vy;
+    float vx;
+    float vy;
 } SHARED_DATA;
 
 int MAX_MESSAGE_LENGTH = 100;
-int HOIST_X_LIM = 101;
-int HOIST_Y_LIM = 41;
+int COURT_X_LIM = 101;
+int COURT_Y_LIM = 41;
 
-// Hoist structure variable
-HOIST hoist;
+// COURT structure variable
+COURT court;
 
 // Mouse event var
 MEVENT event;
 BLACKBOARD_DATA *blackboard;
+SHARED_DATA *shared_data;
 
-// Initialize hoist structure and parameters
-void make_hoist() {
+// Initialize court structure and parameters
+void make_court() {
 
-	hoist.height = HOIST_Y_LIM;
-	hoist.width = HOIST_X_LIM;
-	hoist.starty = (LINES - hoist.height)/2 + 4;	
-	hoist.startx = (COLS - hoist.width)/2;
+	court.height = COURT_Y_LIM;
+	court.width = COURT_X_LIM;
+	court.starty = (LINES - court.height)/2 + 4;	
+	court.startx = (COLS - court.width)/2;
 
-  hoist.border.ls = ACS_VLINE;
-  hoist.border.rs = ACS_VLINE;
-  hoist.border.ts = ACS_HLINE;
-  hoist.border.bs = ACS_HLINE;
-  hoist.border.tl = ACS_ULCORNER;
-  hoist.border.tr = ACS_URCORNER;
-  hoist.border.bl = ACS_LLCORNER;
-  hoist.border.br = ACS_LRCORNER;
+    court.border.ls = ACS_VLINE;
+    court.border.rs = ACS_VLINE;
+    court.border.ts = ACS_HLINE;
+    court.border.bs = ACS_HLINE;
+    court.border.tl = ACS_ULCORNER;
+    court.border.tr = ACS_URCORNER;
+    court.border.bl = ACS_LLCORNER;
+    court.border.br = ACS_LRCORNER;
 }
 
-void draw_hoist() {  
+void draw_court() {  
   
     int x, y, w, h;
 
-  x = hoist.startx;
-  y = hoist.starty;
-  w = hoist.width;
-  h = hoist.height;
+  x = court.startx;
+  y = court.starty;
+  w = court.width;
+  h = court.height;
 
     // Draw top corners and horizontal structure
-    mvaddch(y - 1, x - 2, hoist.border.tl);
-    mvaddch(y - 1, x + w + 1, hoist.border.tr);
-    mvhline(y - 1, x - 1, hoist.border.ts, w + 2);
+    mvaddch(y - 1, x - 2, court.border.tl);
+    mvaddch(y - 1, x + w + 1, court.border.tr);
+    mvhline(y - 1, x - 1, court.border.ts, w + 2);
 
     // Draw bottom corners and side structures
-    mvaddch(y + h , x - 2, hoist.border.bl);
-    mvaddch(y + h , x + w + 1, hoist.border.br);
-    mvvline(y, x - 2, hoist.border.ls, h);
-    mvvline(y, x + w + 1 , hoist.border.rs, h);
+    mvaddch(y + h , x - 2, court.border.bl);
+    mvaddch(y + h , x + w + 1, court.border.br);
+    mvvline(y, x - 2, court.border.ls, h);
+    mvvline(y, x + w + 1 , court.border.rs, h);
 
     // Draw reference floor
-    mvhline(y + h , x - 1, hoist.border.bs, w + 2);
+    mvhline(y + h , x - 1, court.border.bs, w + 2);
 
     refresh();
 }
 
-// Print message with end-effector real coordinates on top of hoist drawing
-void draw_end_effector_msg(float x, float y, float vx, float vy) {
+// Print message with drone real coordinates on top of COURT drawing
+void draw_drone_msg(float x, float y, float vx, float vy) {
 
     for(int j = 0; j < COLS; j++) {
-        mvaddch(hoist.starty - 2, j, ' ');
+        mvaddch(court.starty - 2, j, ' ');
     }
 
     char msg[100];
     sprintf(msg, "Drone velocity [%05.2f vx,%.2f vy]                                      Drone position [%05.2f, %.2f]", vx, vy, x, y);
 
     attron(A_BOLD);
-    mvprintw(hoist.starty - 2, (COLS - strlen(msg)) / 2 + 1, msg);
+    mvprintw(court.starty - 2, (COLS - strlen(msg)) / 2 + 1, msg);
     attroff(A_BOLD);
 }
 
-// Draw hoist's end-effector within the structure
-void draw_hoist_end_effector_at(float ee_x, float ee_y) {
+// Draw drone within the structure
+void draw_drone_at(float ee_x, float ee_y) {
 
     // First, empty all drawn content
-     for(int j = 0; j < hoist.width; j++) {
-        for(int i = 0; i < hoist.height; i++) {
-            mvaddch(hoist.starty + i, hoist.startx + j, ' ');
+     for(int j = 0; j < court.width; j++) {
+        for(int i = 0; i < court.height; i++) {
+            mvaddch(court.starty + i, court.startx + j, ' ');
         }
     }
 
@@ -116,27 +117,27 @@ void draw_hoist_end_effector_at(float ee_x, float ee_y) {
     // int ee_y_int = floor(ee_y);
 
     attron(A_BOLD | COLOR_PAIR(1));
-    mvaddch(hoist.starty + ee_y, hoist.startx + ee_x, '+');
+    mvaddch(court.starty + ee_y, court.startx + ee_x, '+');
     attroff(A_BOLD | COLOR_PAIR(1));
 }
 
 // Utility method to check for end-effector within limits
-void check_ee_within_limits(float* ee_x, float* ee_y) {
+void check_drone_within_limits(float* ee_x, float* ee_y) {
 
     // Checks for horizontal axis
     if(*ee_x <= 0) {
         *ee_x = 0 ;
     }
-    else if(*ee_x >= HOIST_X_LIM) {
-        *ee_x = HOIST_X_LIM-1;
+    else if(*ee_x >= COURT_X_LIM) {
+        *ee_x = COURT_X_LIM-1;
     }
    
     // Checks for vertical axis
     if(*ee_y <= 0) {
         *ee_y = 0 ;
     }
-    else if(*ee_y >= HOIST_Y_LIM) {
-        *ee_y = HOIST_Y_LIM-1;
+    else if(*ee_y >= COURT_Y_LIM) {
+        *ee_y = COURT_Y_LIM-1;
     }
 }
 
@@ -159,7 +160,7 @@ void init_console_ui() {
     init_pair(3, COLOR_BLACK,   COLOR_YELLOW);
 
     // draw UI elements
-    draw_end_effector_msg(0, 0, 0, 0);
+    draw_drone_msg(0, 0, 0, 0);
 
     // Activate input listening (keybord + mouse events ...)
     keypad(stdscr, TRUE);
@@ -168,16 +169,16 @@ void init_console_ui() {
     refresh();
 }
 
-void update_console_ui(float *ee_x, float *ee_y, int *vx, int *vy, BLACKBOARD_DATA *blackboard) {
+void update_console_ui(float *ee_x, float *ee_y, float *vx, float *vy, BLACKBOARD_DATA *blackboard) {
 
-    // check if next end-effector position is within limits
-    check_ee_within_limits(ee_x, ee_y);
+    // check if next drone position is within limits
+    check_drone_within_limits(ee_x, ee_y);
 
-    // Draw updated end-effector position
-    draw_hoist_end_effector_at(*ee_x,*ee_y);
+    // Draw updated drone position
+    draw_drone_at(*ee_x,*ee_y);
 
-    // Update string message for end-effector position
-    draw_end_effector_msg(*ee_x, *ee_y, *vx, *vy);
+    // Update string message for drone position
+    draw_drone_msg(*ee_x, *ee_y, *vx, *vy);
     
     // Display blackboard data in the ncurses window
     mvprintw(2, 0, "Message on the Blackboard: %s", blackboard->message);
@@ -192,11 +193,11 @@ void reset_console_ui() {
     erase();
 
     // Re-create UI elements
-    make_hoist();
+    make_court();
 
     // draw UI elements
-    draw_hoist();
-    draw_end_effector_msg(0, 0, 0 ,0);
+    draw_court();
+    draw_drone_msg(0, 0, 0 ,0);
 
     refresh();
 }
