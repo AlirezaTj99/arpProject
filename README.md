@@ -21,6 +21,24 @@ The processes depend on the ncurses library, which needs to be linked during the
 ./run.sh
 ```
 
+The keys available for the user are:
+```
+                speed up to sky
+
+    up and left                 up and right
+                 -------------
+                 | 7 | 8 | 9 |
+                 |---|---|---|
+speed up to lef  | 4 | 5 | 6 |  speed up to right
+                 |---|---|---|
+                 | 1 | 2 | 3 |
+                 -------------
+    down & left                 down & right
+
+               speed up to ground
+
+```
+
 ## Troubleshooting
 
-Should you experience some weird behavior after launching the application (buttons not spawning inside the GUI or graphical assets misaligned) simply try to resize the terminal window, it should solve the bug.
+Should you experience some weird behavior after launching the application simply try to resize the terminal window, it should solve the bug.
