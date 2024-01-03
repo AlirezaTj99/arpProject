@@ -1,4 +1,4 @@
-#include "./../include/inspection_utilities.h"
+#include "./../include/input.h"
 
 int main(int argc, char const *argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
 
     // Infinite loop
     while(TRUE)
-  {  
+    {  
         // Get mouse/resize commands in non-blocking mode...
         int cmd = getch();
 
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
         
         // Update UI
         update_console_ui(&ee_x, &ee_y, &vx, &vy, blackboard);
-  }
+    }
 
     // Cleanup
     endwin();

@@ -1,22 +1,24 @@
 clear
 echo 'started compiling'
 
-konsole  -e gcc src/inspection_console.c -o bin/inspection -lncurses -lm -lrt &&
-# konsole  -e gcc src/inspection_console.c -lncurses -lm -o bin/inspection &&
-# clear
-echo '  1 - the inspection_console.c compiled successfully'
+konsole  -e gcc src/court.c -o bin/court -lncurses -lm -lrt &&
+echo '  1 - the court.c compiled successfully'
+sleep 2
+
+konsole  -e gcc src/drone.c -o bin/drone -lncurses -lm -lrt &&
+echo '  2 - the drone.c compiled successfully'
+sleep 2
+
+konsole  -e gcc src/input.c -o bin/input -lncurses -lm -lrt &&
+echo '  3 - the input.c compiled successfully'
 sleep 2
 
 konsole  -e gcc src/master.c -o bin/master -lncurses -lm -lrt &&
-#konsole  -e gcc src/master.c -o bin/master &&
-# clear
-echo '  2 - the src/master.c compiled successfully'
+echo '  4 - the src/master.c compiled successfully'
 sleep 2
 
-konsole  -e gcc src/watchDog.c -o bin/watchdog -lncurses -lm -lrt &&
-# konsole  -e gcc src/watchDog.c -o bin/watchdog &&
-# clear
-echo '  3 - the src/watchDog.c compiled successfully'
+konsole  -e gcc src/watchdog.c -o bin/watchdog -lncurses -lm -lrt &&
+echo '  5 - the src/watchDog.c compiled successfully'
 sleep 2
 
 for ((i=2 ; i>0 ; i--)); do

@@ -1,40 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <signal.h>
-#include "./../include/inspection_utilities.h"
-
-int spawn(const char *program, char *arg_list[]) {
-    pid_t child_pid = fork();
-
-    if (child_pid < 0) {
-        perror("Error while forking...");
-        return 1;
-    } else if (child_pid != 0) {
-        return child_pid;
-    } else {
-        if (execvp(program, arg_list) == 0) {
-            perror("Exec failed");
-            return 1;
-        }
-    }
-}
-
-void cleanup() {
-    endwin();
-    munmap(shared_data, sizeof(SHARED_DATA));
-    shm_unlink("/my_shared_memory");
-}
-
-void handle_signal(int signum) {
-    // Handle signals (if needed)
-    cleanup();
-    exit(EXIT_SUCCESS);
-}
+#include "./../include/master.h"
 
 int main() {
     // Set up signal handling
@@ -58,9 +22,17 @@ int main() {
     // Initialize User Interface
     init_console_ui();
 
-    // Spawn Inspection Console Process
-    char *arg_list_inspection[] = {"/usr/bin/konsole", "-e", "./bin/inspection", NULL};
-    pid_t pid_inspection = spawn("/usr/bin/konsole", arg_list_inspection);
+    // // Spawn court Process
+    // char *arg_list_court[] = {"/usr/bin/konsole", "-e", "./bin/court", NULL};
+    // pid_t pid_court = spawn("/usr/bin/konsole", arg_list_court);
+    
+    // // Spawn drone Process
+    // char *arg_list_drone[] = {"/usr/bin/konsole", "-e", "./bin/drone", NULL};
+    // pid_t pid_drone = spawn("/usr/bin/konsole", arg_list_drone);
+
+    // Spawn input Process
+    char *arg_list_input[] = {"/usr/bin/konsole", "-e", "./bin/input", NULL};
+    pid_t pid_input = spawn("/usr/bin/konsole", arg_list_input);
 
     // Spawn Watchdog Process
     char *arg_list_watchdog[] = {"/usr/bin/konsole", "-e", "./bin/watchdog", NULL};
@@ -81,8 +53,12 @@ int main() {
     cleanup();
 
     // Wait for the processes to finish
-    int status_inspection, status_watchdog;
-    waitpid(pid_inspection, &status_inspection, 0);
+    // int status_court, status_drone, status_input, status_watchdog;
+    int status_input, status_watchdog;
+    // waitpid(pid_court, &status_court, 0);
+    // waitpid(pid_drone, &status_drone, 0);
+    waitpid(pid_input, &status_input, 0);
+
     waitpid(pid_watchdog, &status_watchdog, 0);
 
     return 0;
