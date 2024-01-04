@@ -22,14 +22,6 @@ int main() {
     // Initialize User Interface
     init_console_ui();
 
-    // // Spawn court Process
-    // char *arg_list_court[] = {"/usr/bin/konsole", "-e", "./bin/court", NULL};
-    // pid_t pid_court = spawn("/usr/bin/konsole", arg_list_court);
-    
-    // // Spawn drone Process
-    // char *arg_list_drone[] = {"/usr/bin/konsole", "-e", "./bin/drone", NULL};
-    // pid_t pid_drone = spawn("/usr/bin/konsole", arg_list_drone);
-
     // Spawn input Process
     char *arg_list_input[] = {"/usr/bin/konsole", "-e", "./bin/input", NULL};
     pid_t pid_input = spawn("/usr/bin/konsole", arg_list_input);
@@ -43,7 +35,13 @@ int main() {
         // Get mouse/resize commands in non-blocking mode...
         int cmd = getch();
 
-        // Rest of your code handling UI and updating shared data
+        if (shared_data->close_master) {
+            // Perform cleanup
+            cleanup();
+
+            // Exit the program
+            exit(0);
+        }
 
         // Update UI
         update_console_ui(&shared_data->ee_x, &shared_data->ee_y, &shared_data->vx, &shared_data->vy, blackboard);
@@ -53,12 +51,8 @@ int main() {
     cleanup();
 
     // Wait for the processes to finish
-    // int status_court, status_drone, status_input, status_watchdog;
     int status_input, status_watchdog;
-    // waitpid(pid_court, &status_court, 0);
-    // waitpid(pid_drone, &status_drone, 0);
     waitpid(pid_input, &status_input, 0);
-
     waitpid(pid_watchdog, &status_watchdog, 0);
 
     return 0;

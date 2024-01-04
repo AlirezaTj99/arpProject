@@ -32,9 +32,9 @@ int spawn(const char *program, char *arg_list[]) {
 }
 
 void cleanup() {
-    endwin();
     munmap(shared_data, sizeof(SHARED_DATA));
     shm_unlink("/my_shared_memory");
+    endwin();
 }
 
 void handle_signal(int signum) {

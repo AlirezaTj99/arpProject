@@ -31,9 +31,9 @@ void init_console_ui() {
     nodelay(stdscr, TRUE);
     curs_set(0);
 
-    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(1, COLOR_BLUE, COLOR_BLACK);
     init_pair(2, COLOR_WHITE, COLOR_RED);
-    init_pair(3, COLOR_BLACK,   COLOR_YELLOW);
+    init_pair(3, COLOR_BLACK, COLOR_YELLOW);
 
     // draw UI elements
     draw_drone_msg(0, 0, 0, 0);
@@ -77,18 +77,3 @@ void reset_console_ui() {
 
     refresh();
 }
-
-// // Function declarations
-
-// /**
-//  * Initializes any input systems or devices. This might involve setting up ncurses for keyboard input.
-//  */
-// void initialize_input_system();
-
-// /**
-//  * Processes the input received from the user. This function should be called regularly to update the state based on user input.
-//  * @return An integer indicating the type of input received, or a command represented by that input.
-//  */
-// int process_user_input();
-
-// #endif // INPUT_H

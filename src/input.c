@@ -39,6 +39,12 @@ int main(int argc, char const *argv[])
                 reset_console_ui();
             }
         }
+
+        if (vx!=0 || vy!=0) {
+            shared_data->computation_in_progress = 1;
+        } else {
+            shared_data->computation_in_progress = 0;
+        }
         
         // The key commands ...
         switch (cmd)
@@ -72,6 +78,15 @@ int main(int argc, char const *argv[])
                 break;
             case '2':
                 vy++;
+                break;
+            case '5':
+                vy = 0;
+                vx = 0;
+                break;
+            case 'q':
+                shared_data->close_master = 1;  // Signal to master to close
+                endwin();                       // End curses mode
+                exit(0);                        // Exit the program
                 break;
             default:
                 break;

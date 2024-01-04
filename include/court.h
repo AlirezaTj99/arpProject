@@ -13,6 +13,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdbool.h>
+#include <signal.h>
 
 typedef struct {
 	chtype 	ls, rs, ts, bs, 
@@ -30,6 +31,8 @@ typedef struct {
 } BLACKBOARD_DATA;
 
 typedef struct {
+    volatile sig_atomic_t close_master;  // Flag to signal master to close
+    volatile sig_atomic_t computation_in_progress; // Flag to indicate computation in progress
     float ee_x;
     float ee_y;
     float vx;
@@ -89,25 +92,3 @@ void draw_court() {
 
     refresh();
 }
-
-// // Function declarations
-
-// /**
-//  * Initializes the court with default or specified parameters.
-//  *
-//  * @param width   Width of the court.
-//  * @param height  Height of the court.
-//  */
-// void make_court();
-
-// /**
-//  * Draws the court in the application's user interface.
-//  */
-// void draw_court();
-
-// // /**
-// //  * Updates the court's properties or state, if necessary.
-// //  */
-// // void update_court();
-
-// #endif // COURT_H
