@@ -17,12 +17,16 @@ konsole  -e gcc src/force.c -o bin/force -lncurses -lm -lrt &&
 echo '  4 - the force.c compiled successfully'
 # sleep 1
 
+konsole  -e gcc src/obstacle.c -o bin/obstacle -lncurses -lm -lrt &&
+echo '  5 - the obstacle.c compiled successfully'
+# sleep 1
+
 konsole  -e gcc src/master.c -o bin/master -lncurses -lm -lrt &&
-echo '  5 - the src/master.c compiled successfully'
+echo '  6 - the src/master.c compiled successfully'
 # sleep 1
 
 konsole  -e gcc src/watchdog.c -o bin/watchdog -lncurses -lm -lrt &&
-echo '  6 - the src/watchDog.c compiled successfully'
+echo '  7 - the src/watchDog.c compiled successfully'
 # sleep 1
 
 for ((i=2 ; i>0 ; i--)); do

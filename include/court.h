@@ -33,11 +33,32 @@ typedef struct {
 typedef struct {
     volatile sig_atomic_t close_master;            // Flag to signal master to close
     volatile sig_atomic_t computation_in_progress; // Flag to indicate computation in progress
+    volatile sig_atomic_t reachedAllTheGoals;      // Flag to indicate the player reached all the goals
     volatile sig_atomic_t xForceIncrease;          // Flag to indicate Fx++
     volatile sig_atomic_t xForceDecrease;          // Flag to indicate Fx--
     volatile sig_atomic_t yForceIncrease;          // Flag to indicate Fy++
     volatile sig_atomic_t yForceDecrease;          // Flag to indicate Fy--
     volatile sig_atomic_t zeroForce;               // Flag to indicate Fy = Fx = 0
+    volatile sig_atomic_t ox1;
+    volatile sig_atomic_t ox2;
+    volatile sig_atomic_t ox3;
+    volatile sig_atomic_t ox4;
+    volatile sig_atomic_t ox5;
+    volatile sig_atomic_t ox6;
+    volatile sig_atomic_t ox7;
+    volatile sig_atomic_t ox8;
+    volatile sig_atomic_t ox9;
+    volatile sig_atomic_t ox10;
+    volatile sig_atomic_t oy1;
+    volatile sig_atomic_t oy2;
+    volatile sig_atomic_t oy3;
+    volatile sig_atomic_t oy4;
+    volatile sig_atomic_t oy5;
+    volatile sig_atomic_t oy6;
+    volatile sig_atomic_t oy7;
+    volatile sig_atomic_t oy8;
+    volatile sig_atomic_t oy9;
+    volatile sig_atomic_t oy10;
     volatile sig_atomic_t x;
     volatile sig_atomic_t y;
     volatile sig_atomic_t Vx;

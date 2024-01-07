@@ -29,6 +29,43 @@ void draw_drone_at(float ee_x, float ee_y) {
         }
     }
 
+    float x1, x2, x3, x4, x5, x6, x7, x8, x9, x10;
+    float y1, y2, y3, y4, y5, y6, y7, y8, y9, y10;
+
+    x1 = shared_data->ox1;
+    x2 = shared_data->ox2;
+    x3 = shared_data->ox3;
+    x4 = shared_data->ox4;
+    x5 = shared_data->ox5;
+    x6 = shared_data->ox6;
+    x7 = shared_data->ox7;
+    x8 = shared_data->ox8;
+    x9 = shared_data->ox9;
+    x10 = shared_data->ox10;
+    y1 = shared_data->oy1;
+    y2 = shared_data->oy2;
+    y3 = shared_data->oy3;
+    y4 = shared_data->oy4;
+    y5 = shared_data->oy5;
+    y6 = shared_data->oy6;
+    y7 = shared_data->oy7;
+    y8 = shared_data->oy8;
+    y9 = shared_data->oy9;
+    y10 = shared_data->oy10;
+
+    attron(A_BOLD | COLOR_PAIR(2));
+    mvaddch(court.starty + y1, court.startx + x1, 'O');
+    mvaddch(court.starty + y2, court.startx + x2, 'O');
+    mvaddch(court.starty + y3, court.startx + x3, 'O');
+    mvaddch(court.starty + y4, court.startx + x4, 'O');
+    mvaddch(court.starty + y5, court.startx + x5, 'O');
+    mvaddch(court.starty + y6, court.startx + x6, 'O');
+    mvaddch(court.starty + y7, court.startx + x7, 'O');
+    mvaddch(court.starty + y8, court.startx + x8, 'O');
+    mvaddch(court.starty + y9, court.startx + x9, 'O');
+    mvaddch(court.starty + y10, court.startx + x10, 'O');
+    attroff(A_BOLD | COLOR_PAIR(2));
+
     // // Convert  real coordinates to lower integer...
     // int ee_x_int = floor(ee_x);
     // int ee_y_int = floor(ee_y);

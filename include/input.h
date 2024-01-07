@@ -32,7 +32,7 @@ void init_console_ui() {
     curs_set(0);
 
     init_pair(1, COLOR_BLUE, COLOR_BLACK);
-    init_pair(2, COLOR_WHITE, COLOR_RED);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_BLACK, COLOR_YELLOW);
 
     // draw UI elements

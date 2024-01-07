@@ -1,4 +1,4 @@
-# ARP-Drone-Assignment_1
+# ARP-Drone-Assignment
 Base project structure for the first *Advanced and Robot Programming* (ARP) assignment.
 The project provides the basic functionalities for the **Command** and **Inspection processes**, both of which are implemented through the *ncurses library* as simple GUIs. In particular, the repository is organized as follows:
 - The `src` folder contains the source code for the Command, Inspection and Master processes.
