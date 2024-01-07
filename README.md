@@ -42,7 +42,7 @@ speed up to left  | 4 | 5 | 6 |  speed up to right
 
 The key '5' is used to stop the drone and key 'Q' to terminate the master prosessor.
 
-If you're drone stops for 10 seconds you will loose and the watchdog will close all the processors.
+If you're drone stops for 25 seconds you will loose and the watchdog will close all the processors.
 
 ## Troubleshooting
 

@@ -58,7 +58,7 @@ int main() {
 
             no_computation_count++;
 
-            if (no_computation_count > 10) {
+            if (no_computation_count > 25) {
                 // No computation is ongoing for the specified timeout duration; take action
                 printf("No computation is ongoing for %d seconds! Stopping the system...\n",c2);
                 sleep(10);

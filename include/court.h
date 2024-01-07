@@ -31,8 +31,17 @@ typedef struct {
 } BLACKBOARD_DATA;
 
 typedef struct {
-    volatile sig_atomic_t close_master;  // Flag to signal master to close
+    volatile sig_atomic_t close_master;            // Flag to signal master to close
     volatile sig_atomic_t computation_in_progress; // Flag to indicate computation in progress
+    volatile sig_atomic_t xForceIncrease;          // Flag to indicate Fx++
+    volatile sig_atomic_t xForceDecrease;          // Flag to indicate Fx--
+    volatile sig_atomic_t yForceIncrease;          // Flag to indicate Fy++
+    volatile sig_atomic_t yForceDecrease;          // Flag to indicate Fy--
+    volatile sig_atomic_t zeroForce;               // Flag to indicate Fy = Fx = 0
+    volatile sig_atomic_t x;
+    volatile sig_atomic_t y;
+    volatile sig_atomic_t Vx;
+    volatile sig_atomic_t Vy;
     float ee_x;
     float ee_y;
     float vx;

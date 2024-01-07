@@ -12,7 +12,7 @@ int main(int argc, char const *argv[])
     float vx = 0;
     float vy = 0;
 
-    // Initialize Shared Memory for the Blackboard
+    // Initialize Shared Memory
     int shm_fd = shm_open("/my_shared_memory", O_RDWR, 0666);
     if (shm_fd == -1) {
         perror("shm_open");
@@ -40,48 +40,60 @@ int main(int argc, char const *argv[])
             }
         }
 
-        if (vx!=0 || vy!=0) {
-            shared_data->computation_in_progress = 1;
-        } else {
-            shared_data->computation_in_progress = 0;
-        }
+        // if (vx!=0 || vy!=0) {
+        //     shared_data->computation_in_progress = 1;
+        // } else {
+        //     shared_data->computation_in_progress = 0;
+        // }
         
         // The key commands ...
         switch (cmd)
         {
-            // for each key press we apply a 1N force for 1 second, according to f=ma ==> a=f/m ===(m=1)==> a=f so we can say for each key press we apply a=1m/s.
-            // we know a=(delta)v so we can say when we press any key the velocity increase 1m/s in that direction.
+            // for each key press we apply a 1N force for 1 second, and send the signal to shared data.
             case '7':
-                vx--;
-                vy--;
+                shared_data->xForceDecrease = 1;
+                shared_data->yForceDecrease = 1;
+                // vx--;
+                // vy--;
                 break;
             case '9':
-                vx++;
-                vy--;
+                shared_data->xForceIncrease = 1;
+                shared_data->yForceDecrease = 1;
+                // vx++;
+                // vy--;
                 break;
             case '1':
-                vx--;
-                vy++;
+                shared_data->yForceIncrease = 1;
+                shared_data->xForceDecrease = 1;
+                // vx--;
+                // vy++;
                 break;
             case '3':
-                vx++;
-                vy++;
+                shared_data->xForceIncrease = 1;
+                shared_data->yForceIncrease = 1;
+                // vx++;
+                // vy++;
                 break;
             case '4':
-                vx--;
+                shared_data->xForceDecrease = 1;
+                // vx--;
                 break;
             case '6':
-                vx++;
+                shared_data->xForceIncrease = 1;
+                // vx++;
                 break;
             case '8':
-                vy--;
+                shared_data->yForceDecrease = 1;
+                // vy--;
                 break;
             case '2':
-                vy++;
+                shared_data->yForceIncrease = 1;
+                // vy++;
                 break;
             case '5':
-                vy = 0;
-                vx = 0;
+                shared_data->zeroForce = 1;
+                // vy = 0;
+                // vx = 0;
                 break;
             case 'q':
                 shared_data->close_master = 1;  // Signal to master to close
@@ -92,10 +104,16 @@ int main(int argc, char const *argv[])
                 break;
         }
         // we know that v=(delta)x so we can say in each second we have: ee_x' = ee_x + vx and the same for vy
-        ee_x += (vx/100);
-        ee_y += (vy/100);
-        usleep(10000);
+        // ee_x += (vx/100);
+        // ee_y += (vy/100);
         
+        // Read the values of the floats
+        ee_x = shared_data->x;
+        ee_y = shared_data->y;
+        vx = shared_data->Vx;
+        vy = shared_data->Vy;
+        usleep(10000);
+            
         // Update UI
         update_console_ui(&ee_x, &ee_y, &vx, &vy, blackboard);
     }

@@ -26,6 +26,10 @@ int main() {
     char *arg_list_input[] = {"/usr/bin/konsole", "-e", "./bin/input", NULL};
     pid_t pid_input = spawn("/usr/bin/konsole", arg_list_input);
 
+    // Spawn force Process
+    char *arg_list_force[] = {"/usr/bin/konsole", "-e", "./bin/force", NULL};
+    pid_t pid_force = spawn("/usr/bin/konsole", arg_list_force);
+
     // Spawn Watchdog Process
     char *arg_list_watchdog[] = {"/usr/bin/konsole", "-e", "./bin/watchdog", NULL};
     pid_t pid_watchdog = spawn("/usr/bin/konsole", arg_list_watchdog);
@@ -51,8 +55,9 @@ int main() {
     cleanup();
 
     // Wait for the processes to finish
-    int status_input, status_watchdog;
+    int status_input, status_force, status_watchdog;
     waitpid(pid_input, &status_input, 0);
+    waitpid(pid_force, &status_force, 0);
     waitpid(pid_watchdog, &status_watchdog, 0);
 
     return 0;
