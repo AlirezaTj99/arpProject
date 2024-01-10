@@ -18,9 +18,11 @@ int main() {
         perror("mmap");
         exit(EXIT_FAILURE);
     }
+    usleep(1000);
 
     // Initialize User Interface
     init_console_ui();
+    usleep(100);
 
     // Spawn input Process
     char *arg_list_input[] = {"/usr/bin/konsole", "-e", "./bin/input", NULL};
@@ -33,6 +35,10 @@ int main() {
     // Spawn obstacle Process
     char *arg_list_obstacle[] = {"/usr/bin/konsole", "-e", "./bin/obstacle", NULL};
     pid_t pid_obstacle = spawn("/usr/bin/konsole", arg_list_obstacle);
+
+    // Spawn goal Process
+    char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
+    pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
 
     // Spawn Watchdog Process
     char *arg_list_watchdog[] = {"/usr/bin/konsole", "-e", "./bin/watchdog", NULL};
@@ -59,7 +65,8 @@ int main() {
     cleanup();
 
     // Wait for the processes to finish
-    int status_input, status_force, status_obstacle, status_watchdog;
+    int status_input, status_force, status_obstacle, status_goal, status_watchdog;
+    waitpid(pid_goal, &status_goal, 0);
     waitpid(pid_input, &status_input, 0);
     waitpid(pid_force, &status_force, 0);
     waitpid(pid_obstacle, &status_obstacle, 0);

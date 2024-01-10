@@ -29,42 +29,81 @@ void draw_drone_at(float ee_x, float ee_y) {
         }
     }
 
-    float x1, x2, x3, x4, x5, x6, x7, x8, x9, x10;
-    float y1, y2, y3, y4, y5, y6, y7, y8, y9, y10;
+    int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
+    int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
 
-    x1 = shared_data->ox1;
-    x2 = shared_data->ox2;
-    x3 = shared_data->ox3;
-    x4 = shared_data->ox4;
-    x5 = shared_data->ox5;
-    x6 = shared_data->ox6;
-    x7 = shared_data->ox7;
-    x8 = shared_data->ox8;
-    x9 = shared_data->ox9;
-    x10 = shared_data->ox10;
-    y1 = shared_data->oy1;
-    y2 = shared_data->oy2;
-    y3 = shared_data->oy3;
-    y4 = shared_data->oy4;
-    y5 = shared_data->oy5;
-    y6 = shared_data->oy6;
-    y7 = shared_data->oy7;
-    y8 = shared_data->oy8;
-    y9 = shared_data->oy9;
-    y10 = shared_data->oy10;
+    ox1 = shared_data->ox1 ;
+    ox2 = shared_data->ox2 ;
+    ox3 = shared_data->ox3 ;
+    ox4 = shared_data->ox4 ;
+    ox5 = shared_data->ox5 ;
+    ox6 = shared_data->ox6 ;
+    ox7 = shared_data->ox7 ;
+    ox8 = shared_data->ox8 ;
+    ox9 = shared_data->ox9 ;
+    ox10 = shared_data->ox10 ;
+
+    oy1 = shared_data->oy1 ;
+    oy2 = shared_data->oy2 ;
+    oy3 = shared_data->oy3 ;
+    oy4 = shared_data->oy4 ;
+    oy5 = shared_data->oy5 ;
+    oy6 = shared_data->oy6 ;
+    oy7 = shared_data->oy7 ;
+    oy8 = shared_data->oy8 ;
+    oy9 = shared_data->oy9 ;
+    oy10 = shared_data->oy10 ;
 
     attron(A_BOLD | COLOR_PAIR(2));
-    mvaddch(court.starty + y1, court.startx + x1, 'O');
-    mvaddch(court.starty + y2, court.startx + x2, 'O');
-    mvaddch(court.starty + y3, court.startx + x3, 'O');
-    mvaddch(court.starty + y4, court.startx + x4, 'O');
-    mvaddch(court.starty + y5, court.startx + x5, 'O');
-    mvaddch(court.starty + y6, court.startx + x6, 'O');
-    mvaddch(court.starty + y7, court.startx + x7, 'O');
-    mvaddch(court.starty + y8, court.startx + x8, 'O');
-    mvaddch(court.starty + y9, court.startx + x9, 'O');
-    mvaddch(court.starty + y10, court.startx + x10, 'O');
+    mvaddch(court.starty + oy1, court.startx + ox1, 'O');
+    mvaddch(court.starty + oy2, court.startx + ox2, 'O');
+    mvaddch(court.starty + oy3, court.startx + ox3, 'O');
+    mvaddch(court.starty + oy4, court.startx + ox4, 'O');
+    mvaddch(court.starty + oy5, court.startx + ox5, 'O');
+    mvaddch(court.starty + oy6, court.startx + ox6, 'O');
+    mvaddch(court.starty + oy7, court.startx + ox7, 'O');
+    mvaddch(court.starty + oy8, court.startx + ox8, 'O');
+    mvaddch(court.starty + oy9, court.startx + ox9, 'O');
+    mvaddch(court.starty + oy10, court.startx + ox10, 'O');
     attroff(A_BOLD | COLOR_PAIR(2));
+
+    float gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
+    float gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
+
+    gx1 = shared_data->gx1 ;
+    gx2 = shared_data->gx2 ;
+    gx3 = shared_data->gx3 ;
+    gx4 = shared_data->gx4 ;
+    gx5 = shared_data->gx5 ;
+    gx6 = shared_data->gx6 ;
+    gx7 = shared_data->gx7 ;
+    gx8 = shared_data->gx8 ;
+    gx9 = shared_data->gx9 ;
+    gx10 = shared_data->gx10 ;
+
+    gy1 = shared_data->gy1 ;
+    gy2 = shared_data->gy2 ;
+    gy3 = shared_data->gy3 ;
+    gy4 = shared_data->gy4 ;
+    gy5 = shared_data->gy5 ;
+    gy6 = shared_data->gy6 ;
+    gy7 = shared_data->gy7 ;
+    gy8 = shared_data->gy8 ;
+    gy9 = shared_data->gy9 ;
+    gy10 = shared_data->gy10 ;
+
+    attron(A_BOLD | COLOR_PAIR(3));
+    mvaddch(court.starty + gy1, court.startx + gx1, '1');
+    mvaddch(court.starty + gy2, court.startx + gx2, '2');
+    mvaddch(court.starty + gy3, court.startx + gx3, '3');
+    mvaddch(court.starty + gy4, court.startx + gx4, '4');
+    mvaddch(court.starty + gy5, court.startx + gx5, '5');
+    mvaddch(court.starty + gy6, court.startx + gx6, '6');
+    mvaddch(court.starty + gy7, court.startx + gx7, '7');
+    mvaddch(court.starty + gy8, court.startx + gx8, '8');
+    mvaddch(court.starty + gy9, court.startx + gx9, '9');
+    mvaddch(court.starty + gy10, court.startx + gx10, '0');
+    attroff(A_BOLD | COLOR_PAIR(3));
 
     // // Convert  real coordinates to lower integer...
     // int ee_x_int = floor(ee_x);

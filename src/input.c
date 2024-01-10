@@ -23,12 +23,14 @@ int main(int argc, char const *argv[])
 
     // Initialize User Interface 
     init_console_ui();
+    sleep(1);
 
     // Infinite loop
     while(TRUE)
     {  
         // Get mouse/resize commands in non-blocking mode...
         int cmd = getch();
+        usleep(1000);
 
         // If user resizes screen, re-draw UI
         if(cmd == KEY_RESIZE) {
@@ -39,6 +41,18 @@ int main(int argc, char const *argv[])
                 reset_console_ui();
             }
         }
+        usleep(100);
+        shared_data->xForceIncrease = 0;
+        usleep(100);
+        shared_data->xForceDecrease = 0;
+        usleep(100);
+        shared_data->yForceIncrease = 0;
+        usleep(100);
+        shared_data->yForceDecrease = 0;
+        usleep(100);
+        shared_data->zeroForce = 0;
+
+        usleep(500);
 
         // if (vx!=0 || vy!=0) {
         //     shared_data->computation_in_progress = 1;
@@ -97,22 +111,27 @@ int main(int argc, char const *argv[])
                 break;
             case 'q':
                 shared_data->close_master = 1;  // Signal to master to close
+                usleep(1000);
                 endwin();                       // End curses mode
                 exit(0);                        // Exit the program
                 break;
             default:
                 break;
         }
+        usleep(1000);
         // we know that v=(delta)x so we can say in each second we have: ee_x' = ee_x + vx and the same for vy
         // ee_x += (vx/100);
         // ee_y += (vy/100);
         
         // Read the values of the floats
         ee_x = shared_data->x;
+        usleep(1000);
         ee_y = shared_data->y;
+        usleep(1000);
         vx = shared_data->Vx;
+        usleep(1000);
         vy = shared_data->Vy;
-        usleep(10000);
+        usleep(4000);
             
         // Update UI
         update_console_ui(&ee_x, &ee_y, &vx, &vy, blackboard);

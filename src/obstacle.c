@@ -11,23 +11,25 @@ int main()
     ftruncate(shm_fd, sizeof(SHARED_DATA));
     shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
-    shared_data->reachedAllTheGoals = 1;
+    // shared_data->reachedAllTheGoals = 1;
+    // bool allowEntery = 1;
+
+    spawn_random_o();
 
     while (TRUE)
     {
-        while(shared_data->reachedAllTheGoals)
-        {
-            spawn_random_o();
-            usleep(1000);
-            shared_data->reachedAllTheGoals = 0;
-        }
+    //     while(allowEntery == 1)
+    //     {
+            // spawn_random_o();
+            // allowEntery = 0;
+            usleep(10);
+    //     }
     }
-    // spawn_random_o();
 
-    // Cleanup
-    endwin();
-    munmap(blackboard, sizeof(BLACKBOARD_DATA));
-    shm_unlink("/my_shared_memory");
+    // // Cleanup
+    // endwin();
+    // munmap(blackboard, sizeof(BLACKBOARD_DATA));
+    // shm_unlink("/my_shared_memory");
 
-    return 0;
+    // return 0;
 }

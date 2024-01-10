@@ -39,6 +39,7 @@ typedef struct {
     volatile sig_atomic_t yForceIncrease;          // Flag to indicate Fy++
     volatile sig_atomic_t yForceDecrease;          // Flag to indicate Fy--
     volatile sig_atomic_t zeroForce;               // Flag to indicate Fy = Fx = 0
+
     volatile sig_atomic_t ox1;
     volatile sig_atomic_t ox2;
     volatile sig_atomic_t ox3;
@@ -59,6 +60,28 @@ typedef struct {
     volatile sig_atomic_t oy8;
     volatile sig_atomic_t oy9;
     volatile sig_atomic_t oy10;
+
+    volatile sig_atomic_t gx1;
+    volatile sig_atomic_t gx2;
+    volatile sig_atomic_t gx3;
+    volatile sig_atomic_t gx4;
+    volatile sig_atomic_t gx5;
+    volatile sig_atomic_t gx6;
+    volatile sig_atomic_t gx7;
+    volatile sig_atomic_t gx8;
+    volatile sig_atomic_t gx9;
+    volatile sig_atomic_t gx10;
+    volatile sig_atomic_t gy1;
+    volatile sig_atomic_t gy2;
+    volatile sig_atomic_t gy3;
+    volatile sig_atomic_t gy4;
+    volatile sig_atomic_t gy5;
+    volatile sig_atomic_t gy6;
+    volatile sig_atomic_t gy7;
+    volatile sig_atomic_t gy8;
+    volatile sig_atomic_t gy9;
+    volatile sig_atomic_t gy10;
+    
     volatile sig_atomic_t x;
     volatile sig_atomic_t y;
     volatile sig_atomic_t Vx;
