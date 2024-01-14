@@ -34,6 +34,7 @@ typedef struct {
     volatile sig_atomic_t close_master;            // Flag to signal master to close
     volatile sig_atomic_t computation_in_progress; // Flag to indicate computation in progress
     volatile sig_atomic_t reachedAllTheGoals;      // Flag to indicate the player reached all the goals
+    volatile sig_atomic_t allowGoalSpawn;          // Flag to indicate goals are allowed to spawn
     volatile sig_atomic_t xForceIncrease;          // Flag to indicate Fx++
     volatile sig_atomic_t xForceDecrease;          // Flag to indicate Fx--
     volatile sig_atomic_t yForceIncrease;          // Flag to indicate Fy++

@@ -11,19 +11,18 @@ int main()
     ftruncate(shm_fd, sizeof(SHARED_DATA));
     shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
-    shared_data->reachedAllTheGoals = 1;
+    // shared_data->allowGoalSpawn = 1;
 
     while (TRUE)
     {
-        while(shared_data->reachedAllTheGoals)
+        while(shared_data->allowGoalSpawn)
         {
             importObstacleCoordinates();
             spawn_random_g();
-            shared_data->reachedAllTheGoals = 0;
+            shared_data->allowGoalSpawn = 0;
             usleep(1000);
         }
     }
-    // spawn_random_o();
 
     // Cleanup
     endwin();

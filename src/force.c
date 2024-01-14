@@ -324,7 +324,23 @@ int main(){
 
         ee_x += (vx/100);
         ee_y += (vy/100);
-        
+
+        // Checks for horizontal axis
+        if(ee_x <= 0) {
+            ee_x = 0 ;
+        }
+        else if(ee_x >= COURT_X_LIM) {
+            ee_x = COURT_X_LIM-1;
+        }
+    
+        // Checks for vertical axis
+        if(ee_y <= 0) {
+            ee_y = 0 ;
+        }
+        else if(ee_y >= COURT_Y_LIM) {
+            ee_y = COURT_Y_LIM-1;
+        }
+          
         usleep(10);
 
         if (vx!=0 || vy!=0) {
