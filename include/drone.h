@@ -93,16 +93,46 @@ void draw_drone_at(float ee_x, float ee_y) {
     gy10 = shared_data->gy10 ;
 
     attron(A_BOLD | COLOR_PAIR(3));
-    mvaddch(court.starty + gy1, court.startx + gx1, '1');
+    if(!shared_data->reachedGoal1)
+        {
+        mvaddch(court.starty + gy1, court.startx + gx1, '1');
+        }
+    if(!shared_data->reachedGoal2)
+        {
     mvaddch(court.starty + gy2, court.startx + gx2, '2');
+        }
+    if(!shared_data->reachedGoal3)
+        {
     mvaddch(court.starty + gy3, court.startx + gx3, '3');
+        }
+    if(!shared_data->reachedGoal4)
+        {
     mvaddch(court.starty + gy4, court.startx + gx4, '4');
+        }
+    if(!shared_data->reachedGoal5)
+        {
     mvaddch(court.starty + gy5, court.startx + gx5, '5');
+        }
+    if(!shared_data->reachedGoal6)
+        {
     mvaddch(court.starty + gy6, court.startx + gx6, '6');
+        }
+    if(!shared_data->reachedGoal7)
+        {
     mvaddch(court.starty + gy7, court.startx + gx7, '7');
+        }
+    if(!shared_data->reachedGoal8)
+        {
     mvaddch(court.starty + gy8, court.startx + gx8, '8');
+        }
+    if(!shared_data->reachedGoal9)
+        {
     mvaddch(court.starty + gy9, court.startx + gx9, '9');
+        }
+    if(!shared_data->reachedGoal10)
+        {
     mvaddch(court.starty + gy10, court.startx + gx10, '0');
+        }
     attroff(A_BOLD | COLOR_PAIR(3));
 
     // // Convert  real coordinates to lower integer...

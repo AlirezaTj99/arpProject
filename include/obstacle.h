@@ -21,9 +21,9 @@ void spawn_random_o() {
           ((ee_x - 2) < x4 && (ee_x + 2) > x4) && ((ee_y - 2) < y4 && (ee_y + 2) > y4) ||
           ((ee_x - 2) < x5 && (ee_x + 2) > x5) && ((ee_y - 2) < y5 && (ee_y + 2) > y5)  )
     {
-        int min = 1; // The minimum positive value for x and y
-        int max_x = COURT_X_LIM; // The maximum value for x
-        int max_y = COURT_Y_LIM; // The maximum value for y
+        int min = 2; // The minimum positive value for x and y
+        int max_x = COURT_X_LIM-2; // The maximum value for x
+        int max_y = COURT_Y_LIM-2; // The maximum value for y
 
         x1 = min + rand() % (max_x - min + 1);
         x2 = min + rand() % (max_x - min + 1);

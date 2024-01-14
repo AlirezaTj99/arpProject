@@ -41,6 +41,17 @@ typedef struct {
     volatile sig_atomic_t yForceDecrease;          // Flag to indicate Fy--
     volatile sig_atomic_t zeroForce;               // Flag to indicate Fy = Fx = 0
 
+    volatile sig_atomic_t reachedGoal1;            // Flag to indicate if end effector reached the first goal
+    volatile sig_atomic_t reachedGoal2;            // Flag to indicate if end effector reached the second goal
+    volatile sig_atomic_t reachedGoal3;            // Flag to indicate if end effector reached the third goal
+    volatile sig_atomic_t reachedGoal4;            // Flag to indicate if end effector reached the 4th goal
+    volatile sig_atomic_t reachedGoal5;            // Flag to indicate if end effector reached the 5th goal
+    volatile sig_atomic_t reachedGoal6;            // Flag to indicate if end effector reached the 6th goal
+    volatile sig_atomic_t reachedGoal7;            // Flag to indicate if end effector reached the 7th goal
+    volatile sig_atomic_t reachedGoal8;            // Flag to indicate if end effector reached the 8th goal
+    volatile sig_atomic_t reachedGoal9;            // Flag to indicate if end effector reached the 9th goal
+    volatile sig_atomic_t reachedGoal10;           // Flag to indicate if end effector reached the 10th goal
+
     volatile sig_atomic_t ox1;
     volatile sig_atomic_t ox2;
     volatile sig_atomic_t ox3;

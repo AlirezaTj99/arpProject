@@ -11,6 +11,18 @@ int main(){
     ftruncate(shm_fd, sizeof(SHARED_DATA));
     shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     sleep(1);
+
+    shared_data->reachedGoal1 = 0;
+    shared_data->reachedGoal2 = 0;
+    shared_data->reachedGoal3 = 0;
+    shared_data->reachedGoal4 = 0;
+    shared_data->reachedGoal5 = 0;
+    shared_data->reachedGoal6 = 0;
+    shared_data->reachedGoal7 = 0;
+    shared_data->reachedGoal8 = 0;
+    shared_data->reachedGoal9 = 0;
+    shared_data->reachedGoal10 = 0;
+
     while(TRUE)
     {
         shared_data->x = ee_x;
@@ -350,252 +362,272 @@ int main(){
         gd10 = sqrt(pow(dgx10, 2) + pow(dgy10, 2));
 
         // goal 1 repulsive force calculator
-        if(gd1 < Rg)
-        {
-            float gf1=0.0;            
-            float absdgx1 = fabs (dgx1);
-            float absdgy1 = fabs (dgy1);
-            
-            gf1 = 0.5 * pow(((1.0 / gd1) - (1.0 / Rg)), 2);
-            if(gf1 > fgMax)
+        if(!shared_data->reachedGoal1){
+            if(gd1 < Rg)
             {
-                gf1 = fgMax;
-            }
-            usleep(100);
-            Fgx1 = (absdgx1/(absdgx1 + absdgy1))*gf1;
-            Fgy1 = (absdgy1/(absdgx1 + absdgy1))*gf1;
-            if(dgx1 > 0)
-            {
-                Fgx1 *= -1;
-            }
-            if(dgy1 > 0)
-            {
-                Fgy1 *= -1;
+                float gf1=0.0;            
+                float absdgx1 = fabs (dgx1);
+                float absdgy1 = fabs (dgy1);
+                
+                gf1 = 0.5 * pow(((1.0 / gd1) - (1.0 / Rg)), 2);
+                if(gf1 > fgMax)
+                {
+                    gf1 = fgMax;
+                }
+                usleep(100);
+                Fgx1 = (absdgx1/(absdgx1 + absdgy1))*gf1;
+                Fgy1 = (absdgy1/(absdgx1 + absdgy1))*gf1;
+                if(dgx1 > 0)
+                {
+                    Fgx1 *= -1;
+                }
+                if(dgy1 > 0)
+                {
+                    Fgy1 *= -1;
+                }
             }
         }
 
         // goal 2 repulsive force calculator
-        if(gd2 < Rg)
-        {
-            float gf2=0.0;            
-            float absdgx2 = fabs (dgx2);
-            float absdgy2 = fabs (dgy2);
-            
-            gf2 = 0.5 * pow(((1.0 / gd2) - (1.0 / Rg)), 2);
-            if(gf2 > fgMax)
+        if(!shared_data->reachedGoal2){
+            if(gd2 < Rg)
             {
-                gf2 = fgMax;
-            }
-            usleep(100);
-            Fgx2 = (absdgx2/(absdgx2 + absdgy2))*gf2;
-            Fgy2 = (absdgy2/(absdgx2 + absdgy2))*gf2;
-            if(dgx2 > 0)
-            {
-                Fgx2 *= -1;
-            }
-            if(dgy2 > 0)
-            {
-                Fgy2 *= -1;
+                float gf2=0.0;            
+                float absdgx2 = fabs (dgx2);
+                float absdgy2 = fabs (dgy2);
+                
+                gf2 = 0.5 * pow(((1.0 / gd2) - (1.0 / Rg)), 2);
+                if(gf2 > fgMax)
+                {
+                    gf2 = fgMax;
+                }
+                usleep(100);
+                Fgx2 = (absdgx2/(absdgx2 + absdgy2))*gf2;
+                Fgy2 = (absdgy2/(absdgx2 + absdgy2))*gf2;
+                if(dgx2 > 0)
+                {
+                    Fgx2 *= -1;
+                }
+                if(dgy2 > 0)
+                {
+                    Fgy2 *= -1;
+                }
             }
         }
-        
+            
         // goal 3 repulsive force calculator
-        if(gd3 < Rg)
-        {
-            float gf3=0.0;            
-            float absdgx3 = fabs (dgx3);
-            float absdgy3 = fabs (dgy3);
-            
-            gf3 = 0.5 * pow(((1.0 / gd3) - (1.0 / Rg)), 2);
-            if(gf3 > fgMax)
+        if(!shared_data->reachedGoal3){
+            if(gd3 < Rg)
             {
-                gf3 = fgMax;
-            }
-            usleep(100);
-            Fgx3 = (absdgx3/(absdgx3 + absdgy3))*gf3;
-            Fgy3 = (absdgy3/(absdgx3 + absdgy3))*gf3;
-            if(dgx3 > 0)
-            {
-                Fgx3 *= -1;
-            }
-            if(dgy3 > 0)
-            {
-                Fgy3 *= -1;
+                float gf3=0.0;            
+                float absdgx3 = fabs (dgx3);
+                float absdgy3 = fabs (dgy3);
+                
+                gf3 = 0.5 * pow(((1.0 / gd3) - (1.0 / Rg)), 2);
+                if(gf3 > fgMax)
+                {
+                    gf3 = fgMax;
+                }
+                usleep(100);
+                Fgx3 = (absdgx3/(absdgx3 + absdgy3))*gf3;
+                Fgy3 = (absdgy3/(absdgx3 + absdgy3))*gf3;
+                if(dgx3 > 0)
+                {
+                    Fgx3 *= -1;
+                }
+                if(dgy3 > 0)
+                {
+                    Fgy3 *= -1;
+                }
             }
         }
-        
+            
         // goal 4 repulsive force calculator
-        if(gd4 < Rg)
-        {
-            float gf4=0.0;            
-            float absdgx4 = fabs (dgx4);
-            float absdgy4 = fabs (dgy4);
-            
-            gf4 = 0.5 * pow(((1.0 / gd4) - (1.0 / Rg)), 2);
-            if(gf4 > fgMax)
+        if(!shared_data->reachedGoal4){
+            if(gd4 < Rg)
             {
-                gf4 = fgMax;
-            }
-            usleep(100);
-            Fgx4 = (absdgx4/(absdgx4 + absdgy4))*gf4;
-            Fgy4 = (absdgy4/(absdgx4 + absdgy4))*gf4;
-            if(dgx4 > 0)
-            {
-                Fgx4 *= -1;
-            }
-            if(dgy4 > 0)
-            {
-                Fgy4 *= -1;
+                float gf4=0.0;            
+                float absdgx4 = fabs (dgx4);
+                float absdgy4 = fabs (dgy4);
+                
+                gf4 = 0.5 * pow(((1.0 / gd4) - (1.0 / Rg)), 2);
+                if(gf4 > fgMax)
+                {
+                    gf4 = fgMax;
+                }
+                usleep(100);
+                Fgx4 = (absdgx4/(absdgx4 + absdgy4))*gf4;
+                Fgy4 = (absdgy4/(absdgx4 + absdgy4))*gf4;
+                if(dgx4 > 0)
+                {
+                    Fgx4 *= -1;
+                }
+                if(dgy4 > 0)
+                {
+                    Fgy4 *= -1;
+                }
             }
         }
-        
+            
         // goal 5 repulsive force calculator
-        if(gd5 < Rg)
-        {
-            float gf5=0.0;            
-            float absdgx5 = fabs (dgx5);
-            float absdgy5 = fabs (dgy5);
-            
-            gf5 = 0.5 * pow(((1.0 / gd5) - (1.0 / Rg)), 2);
-            if(gf5 > fgMax)
+        if(!shared_data->reachedGoal5){
+            if(gd5 < Rg)
             {
-                gf5 = fgMax;
-            }
-            usleep(100);
-            Fgx5 = (absdgx5/(absdgx5 + absdgy5))*gf5;
-            Fgy5 = (absdgy5/(absdgx5 + absdgy5))*gf5;
-            if(dgx5 > 0)
-            {
-                Fgx5 *= -1;
-            }
-            if(dgy5 > 0)
-            {
-                Fgy5 *= -1;
+                float gf5=0.0;            
+                float absdgx5 = fabs (dgx5);
+                float absdgy5 = fabs (dgy5);
+                
+                gf5 = 0.5 * pow(((1.0 / gd5) - (1.0 / Rg)), 2);
+                if(gf5 > fgMax)
+                {
+                    gf5 = fgMax;
+                }
+                usleep(100);
+                Fgx5 = (absdgx5/(absdgx5 + absdgy5))*gf5;
+                Fgy5 = (absdgy5/(absdgx5 + absdgy5))*gf5;
+                if(dgx5 > 0)
+                {
+                    Fgx5 *= -1;
+                }
+                if(dgy5 > 0)
+                {
+                    Fgy5 *= -1;
+                }
             }
         }
-        
+            
         // goal 6 repulsive force calculator
-        if(gd6 < Rg)
-        {
-            float gf6=0.0;            
-            float absdgx6 = fabs (dgx6);
-            float absdgy6 = fabs (dgy6);
-            
-            gf6 = 0.5 * pow(((1.0 / gd6) - (1.0 / Rg)), 2);
-            if(gf6 > fgMax)
+        if(!shared_data->reachedGoal6){
+            if(gd6 < Rg)
             {
-                gf6 = fgMax;
-            }
-            usleep(100);
-            Fgx6 = (absdgx6/(absdgx6 + absdgy6))*gf6;
-            Fgy6 = (absdgy6/(absdgx6 + absdgy6))*gf6;
-            if(dgx6 > 0)
-            {
-                Fgx6 *= -1;
-            }
-            if(dgy6 > 0)
-            {
-                Fgy6 *= -1;
+                float gf6=0.0;            
+                float absdgx6 = fabs (dgx6);
+                float absdgy6 = fabs (dgy6);
+                
+                gf6 = 0.5 * pow(((1.0 / gd6) - (1.0 / Rg)), 2);
+                if(gf6 > fgMax)
+                {
+                    gf6 = fgMax;
+                }
+                usleep(100);
+                Fgx6 = (absdgx6/(absdgx6 + absdgy6))*gf6;
+                Fgy6 = (absdgy6/(absdgx6 + absdgy6))*gf6;
+                if(dgx6 > 0)
+                {
+                    Fgx6 *= -1;
+                }
+                if(dgy6 > 0)
+                {
+                    Fgy6 *= -1;
+                }
             }
         }
-        
+            
         // goal 7 repulsive force calculator
-        if(gd7 < Rg)
-        {
-            float gf7=0.0;            
-            float absdgx7 = fabs (dgx7);
-            float absdgy7 = fabs (dgy7);
-            
-            gf7 = 0.5 * pow(((1.0 / gd7) - (1.0 / Rg)), 2);
-            if(gf7 > fgMax)
+        if(!shared_data->reachedGoal7){
+            if(gd7 < Rg)
             {
-                gf7 = fgMax;
-            }
-            usleep(100);
-            Fgx7 = (absdgx7/(absdgx7 + absdgy7))*gf7;
-            Fgy7 = (absdgy7/(absdgx7 + absdgy7))*gf7;
-            if(dgx7 > 0)
-            {
-                Fgx7 *= -1;
-            }
-            if(dgy7 > 0)
-            {
-                Fgy7 *= -1;
+                float gf7=0.0;            
+                float absdgx7 = fabs (dgx7);
+                float absdgy7 = fabs (dgy7);
+                
+                gf7 = 0.5 * pow(((1.0 / gd7) - (1.0 / Rg)), 2);
+                if(gf7 > fgMax)
+                {
+                    gf7 = fgMax;
+                }
+                usleep(100);
+                Fgx7 = (absdgx7/(absdgx7 + absdgy7))*gf7;
+                Fgy7 = (absdgy7/(absdgx7 + absdgy7))*gf7;
+                if(dgx7 > 0)
+                {
+                    Fgx7 *= -1;
+                }
+                if(dgy7 > 0)
+                {
+                    Fgy7 *= -1;
+                }
             }
         }
-        
+            
         // goal 8 repulsive force calculator
-        if(gd8 < Rg)
-        {
-            float gf8=0.0;            
-            float absdgx8 = fabs (dgx8);
-            float absdgy8 = fabs (dgy8);
-            
-            gf8 = 0.5 * pow(((1.0 / gd8) - (1.0 / Rg)), 2);
-            if(gf8 > fgMax)
+        if(!shared_data->reachedGoal8){
+            if(gd8 < Rg)
             {
-                gf8 = fgMax;
-            }
-            usleep(100);
-            Fgx8 = (absdgx8/(absdgx8 + absdgy8))*gf8;
-            Fgy8 = (absdgy8/(absdgx8 + absdgy8))*gf8;
-            if(dgx8 > 0)
-            {
-                Fgx8 *= -1;
-            }
-            if(dgy8 > 0)
-            {
-                Fgy8 *= -1;
+                float gf8=0.0;            
+                float absdgx8 = fabs (dgx8);
+                float absdgy8 = fabs (dgy8);
+                
+                gf8 = 0.5 * pow(((1.0 / gd8) - (1.0 / Rg)), 2);
+                if(gf8 > fgMax)
+                {
+                    gf8 = fgMax;
+                }
+                usleep(100);
+                Fgx8 = (absdgx8/(absdgx8 + absdgy8))*gf8;
+                Fgy8 = (absdgy8/(absdgx8 + absdgy8))*gf8;
+                if(dgx8 > 0)
+                {
+                    Fgx8 *= -1;
+                }
+                if(dgy8 > 0)
+                {
+                    Fgy8 *= -1;
+                }
             }
         }
-        
+            
         // goal 9 repulsive force calculator
-        if(gd9 < Rg)
-        {
-            float gf9=0.0;            
-            float absdgx9 = fabs (dgx9);
-            float absdgy9 = fabs (dgy9);
-            
-            gf9 = 0.5 * pow(((1.0 / gd9) - (1.0 / Rg)), 2);
-            if(gf9 > fgMax)
+        if(!shared_data->reachedGoal9){
+            if(gd9 < Rg)
             {
-                gf9 = fgMax;
-            }
-            usleep(100);
-            Fgx9 = (absdgx9/(absdgx9 + absdgy9))*gf9;
-            Fgy9 = (absdgy9/(absdgx9 + absdgy9))*gf9;
-            if(dgx9 > 0)
-            {
-                Fgx9 *= -1;
-            }
-            if(dgy9 > 0)
-            {
-                Fgy9 *= -1;
+                float gf9=0.0;            
+                float absdgx9 = fabs (dgx9);
+                float absdgy9 = fabs (dgy9);
+                
+                gf9 = 0.5 * pow(((1.0 / gd9) - (1.0 / Rg)), 2);
+                if(gf9 > fgMax)
+                {
+                    gf9 = fgMax;
+                }
+                usleep(100);
+                Fgx9 = (absdgx9/(absdgx9 + absdgy9))*gf9;
+                Fgy9 = (absdgy9/(absdgx9 + absdgy9))*gf9;
+                if(dgx9 > 0)
+                {
+                    Fgx9 *= -1;
+                }
+                if(dgy9 > 0)
+                {
+                    Fgy9 *= -1;
+                }
             }
         }
-        
-        // goal 10 repulsive force calculator
-        if(gd10 < Rg)
-        {
-            float gf10=0.0;            
-            float absdgx10 = fabs (dgx10);
-            float absdgy10 = fabs (dgy10);
             
-            gf10 = 0.5 * pow(((1.0 / gd10) - (1.0 / Rg)), 2);
-            if(gf10 > fgMax)
+        // goal 10 repulsive force calculator
+        if(!shared_data->reachedGoal10){
+            if(gd10 < Rg)
             {
-                gf10 = fgMax;
-            }
-            usleep(100);
-            Fgx10 = (absdgx10/(absdgx10 + absdgy10))*gf10;
-            Fgy10 = (absdgy10/(absdgx10 + absdgy10))*gf10;
-            if(dgx10 > 0)
-            {
-                Fgx10 *= -1;
-            }
-            if(dgy10 > 0)
-            {
-                Fgy10 *= -1;
+                float gf10=0.0;            
+                float absdgx10 = fabs (dgx10);
+                float absdgy10 = fabs (dgy10);
+                
+                gf10 = 0.5 * pow(((1.0 / gd10) - (1.0 / Rg)), 2);
+                if(gf10 > fgMax)
+                {
+                    gf10 = fgMax;
+                }
+                usleep(100);
+                Fgx10 = (absdgx10/(absdgx10 + absdgy10))*gf10;
+                Fgy10 = (absdgy10/(absdgx10 + absdgy10))*gf10;
+                if(dgx10 > 0)
+                {
+                    Fgx10 *= -1;
+                }
+                if(dgy10 > 0)
+                {
+                    Fgy10 *= -1;
+                }
             }
         }
 
@@ -631,6 +663,48 @@ int main(){
         }
         else if(ee_y >= COURT_Y_LIM) {
             ee_y = COURT_Y_LIM-1;
+        }
+
+        // check if the ee is close enough to goals
+        if (gd1 < 1)
+        {
+            shared_data->reachedGoal1 = 1;              // the drone reached first goal
+        }
+        if (gd2 < 0.5)
+        {
+            shared_data->reachedGoal2 = 1;              // the drone reached first goal
+        }
+        if (gd3 < 0.5)
+        {
+            shared_data->reachedGoal3 = 1;              // the drone reached first goal
+        }
+        if (gd4 < 0.5)
+        {
+            shared_data->reachedGoal4 = 1;              // the drone reached first goal
+        }
+        if (gd5 < 0.5)
+        {
+            shared_data->reachedGoal5 = 1;              // the drone reached first goal
+        }
+        if (gd6 < 0.5)
+        {
+            shared_data->reachedGoal6 = 1;              // the drone reached first goal
+        }
+        if (gd7 < 0.5)
+        {
+            shared_data->reachedGoal7 = 1;              // the drone reached first goal
+        }
+        if (gd8 < 0.5)
+        {
+            shared_data->reachedGoal8 = 1;              // the drone reached first goal
+        }
+        if (gd9 < 0.5)
+        {
+            shared_data->reachedGoal9 = 1;              // the drone reached first goal
+        }
+        if (gd10 < 0.5)
+        {
+            shared_data->reachedGoal10 = 1;              // the drone reached first goal
         }
           
         usleep(10);
