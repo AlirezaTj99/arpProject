@@ -15,11 +15,16 @@ void spawn_random_o() {
 
     srand(time(0));
     
-    while(((ee_x - 2) < x1 && (ee_x + 2) > x1) && ((ee_y - 2) < y1 && (ee_y + 2) > y1) ||
-          ((ee_x - 2) < x2 && (ee_x + 2) > x2) && ((ee_y - 2) < y2 && (ee_y + 2) > y2) ||
-          ((ee_x - 2) < x3 && (ee_x + 2) > x3) && ((ee_y - 2) < y3 && (ee_y + 2) > y3) ||
-          ((ee_x - 2) < x4 && (ee_x + 2) > x4) && ((ee_y - 2) < y4 && (ee_y + 2) > y4) ||
-          ((ee_x - 2) < x5 && (ee_x + 2) > x5) && ((ee_y - 2) < y5 && (ee_y + 2) > y5)  )
+    while(((ee_x - 6) < x1 && (ee_x + 6) > x1) && ((ee_y - 6) < y1 && (ee_y + 6) > y1) ||
+          ((ee_x - 6) < x2 && (ee_x + 6) > x2) && ((ee_y - 6) < y2 && (ee_y + 6) > y2) ||
+          ((ee_x - 6) < x3 && (ee_x + 6) > x3) && ((ee_y - 6) < y3 && (ee_y + 6) > y3) ||
+          ((ee_x - 6) < x4 && (ee_x + 6) > x4) && ((ee_y - 6) < y4 && (ee_y + 6) > y4) ||
+          ((ee_x - 6) < x5 && (ee_x + 6) > x5) && ((ee_y - 6) < y5 && (ee_y + 6) > y5) ||
+          ((ee_x - 6) < x6 && (ee_x + 6) > x6) && ((ee_y - 6) < y6 && (ee_y + 6) > y6) ||
+          ((ee_x - 6) < x7 && (ee_x + 6) > x7) && ((ee_y - 6) < y7 && (ee_y + 6) > y7) ||
+          ((ee_x - 6) < x8 && (ee_x + 6) > x8) && ((ee_y - 6) < y8 && (ee_y + 6) > y8) ||
+          ((ee_x - 6) < x9 && (ee_x + 6) > x9) && ((ee_y - 6) < y9 && (ee_y + 6) > y9) ||
+          ((ee_x - 6) < x10 && (ee_x + 6) > x10) && ((ee_y - 6) < y10 && (ee_y + 6) > y10))
     {
         int min = 2; // The minimum positive value for x and y
         int max_x = COURT_X_LIM-2; // The maximum value for x

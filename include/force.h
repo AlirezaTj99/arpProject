@@ -6,8 +6,8 @@ float fy = 0.0;
 float vx = 0.0;
 float vy = 0.0;
 
-float ee_x = 0.0;
-float ee_y = 0.0;
+float ee_x = 50.0;
+float ee_y = 20.0;
 
 // void check_drone_within_limits() {
 

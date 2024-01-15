@@ -12,17 +12,6 @@ int main(){
     shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     sleep(1);
 
-    shared_data->reachedGoal1 = 0;
-    shared_data->reachedGoal2 = 0;
-    shared_data->reachedGoal3 = 0;
-    shared_data->reachedGoal4 = 0;
-    shared_data->reachedGoal5 = 0;
-    shared_data->reachedGoal6 = 0;
-    shared_data->reachedGoal7 = 0;
-    shared_data->reachedGoal8 = 0;
-    shared_data->reachedGoal9 = 0;
-    shared_data->reachedGoal10 = 0;
-
     while(TRUE)
     {
         shared_data->x = ee_x;
@@ -65,8 +54,8 @@ int main(){
         int x1, x2, x3, x4, x5, x6, x7, x8, x9, x10; float Fx=0.0, Fx1=0.0, Fx2=0.0, Fx3=0.0, Fx4=0.0, Fx5=0.0, Fx6=0.0, Fx7=0.0, Fx8=0.0, Fx9=0.0, Fx10=0.0;
         int y1, y2, y3, y4, y5, y6, y7, y8, y9, y10; float Fy=0.0, Fy1=0.0, Fy2=0.0, Fy3=0.0, Fy4=0.0, Fy5=0.0, Fy6=0.0, Fy7=0.0, Fy8=0.0, Fy9=0.0, Fy10=0.0;
 
-        int Ro = 10, Rg = 3;                  // Radios of efficeint repulsive force(Ro) and efficient attract force (Rg)
-        float no = 10.0, ng = 1;              // the repulsive force gain (no) and attract force gain (ng)
+        int Ro = 10, Rg = 3, Rw = 3;      // Radios of obstacles efficeint repulsive force(Ro), Walls efficeint repulsive force(Rw) and efficient attract force (Rg)
+        float no = 10.0, ng = 1, nw = 1; // the obstacles repulsive force gain (no), Walls repulsive force gain (nw) and attract force gain (ng)
 
         // Import obstacle coordinates
         x1 = shared_data->ox1 ;
@@ -318,6 +307,33 @@ int main(){
             {
                 Fy10 *= -1;
             }
+        }
+
+        float Flbx=0.0, Frbx=0.0, Ftby=0.0, Fbby=0.0;                   // lb: left border, rb: right border, tb: top border, bb: buttom border, 
+
+        // Left border repulsive force calculator
+        if(ee_x < Rw)
+        {
+            Flbx = 0.5 * pow(((1.0 / ee_x) - (1.0 / Rw)), 2);
+            usleep(100);
+        }
+        // Right border repulsive force calculator
+        else if((COURT_X_LIM - ee_x) < Rw)
+        {
+            Frbx = 0.5 * pow(((1.0 / (COURT_X_LIM - ee_x)) - (1.0 / Rw)), 2);
+            usleep(100);
+        }
+        // Top border repulsive force calculator
+        if(ee_y < Rw)
+        {
+            Ftby = 0.5 * pow(((1.0 / ee_y) - (1.0 / Rw)), 2);
+            usleep(100);
+        }
+        // Right border repulsive force calculator
+        else if((COURT_Y_LIM - ee_y) < Rw)
+        {
+            Fbby = 0.5 * pow(((1.0 / (COURT_Y_LIM - ee_y)) - (1.0 / Rw)), 2);
+            usleep(100);
         }
 
         int gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10; float Fgx1=0.0, Fgx2=0.0, Fgx3=0.0, Fgx4=0.0, Fgx5=0.0, Fgx6=0.0, Fgx7=0.0, Fgx8=0.0, Fgx9=0.0, Fgx10=0.0;
@@ -631,11 +647,14 @@ int main(){
             }
         }
 
-        // We add all the repulsive forces together
-        Fx = (no * (Fx1+Fx2+Fx3+Fx4+Fx5+Fx6+Fx7+Fx8+Fx9+Fx10))+(ng * (Fgx1+Fgx2+Fgx3+Fgx4+Fgx5+Fgx6+Fgx7+Fgx8+Fgx9+Fgx10));
-        Fy = (no * (Fy1+Fy2+Fy3+Fy4+Fy5+Fy6+Fy7+Fy8+Fy9+Fy10))+(ng * (Fgy1+Fgy2+Fgy3+Fgy4+Fgy5+Fgy6+Fgy7+Fgy8+Fgy9+Fgy10));
+        // We add all the forces together
+        Fx = (no * (Fx1+Fx2+Fx3+Fx4+Fx5+Fx6+Fx7+Fx8+Fx9+Fx10))+(ng * (Fgx1+Fgx2+Fgx3+Fgx4+Fgx5+Fgx6+Fgx7+Fgx8+Fgx9+Fgx10))+(nw * (Flbx-Frbx));
+        Fy = (no * (Fy1+Fy2+Fy3+Fy4+Fy5+Fy6+Fy7+Fy8+Fy9+Fy10))+(ng * (Fgy1+Fgy2+Fgy3+Fgy4+Fgy5+Fgy6+Fgy7+Fgy8+Fgy9+Fgy10))+(nw * (Ftby-Fbby));
 
-        // We add the repulsive force to the input force
+        if (Fx > 50){Fx = 50;}else if (Fx < -50){Fx = -50;}
+        if (Fy > 50){Fy = 50;}else if (Fy < -50){Fy = -50;}
+
+        // We add the calculated force to the input force
         fx += Fx;
         fy += Fy;
         usleep(100);
@@ -705,6 +724,13 @@ int main(){
         if (gd10 < 0.5)
         {
             shared_data->reachedGoal10 = 1;              // the drone reached first goal
+        }
+
+        if (shared_data->reachedGoal1 && shared_data->reachedGoal2 && shared_data->reachedGoal3 && shared_data->reachedGoal4 && shared_data->reachedGoal5 &&
+            shared_data->reachedGoal6 && shared_data->reachedGoal7 && shared_data->reachedGoal8 && shared_data->reachedGoal9 && shared_data->reachedGoal10 )
+        {
+            sleep(2);
+            shared_data->reachedAllTheGoals = 1;
         }
           
         usleep(10);

@@ -17,6 +17,16 @@ int main()
     {
         while(shared_data->allowGoalSpawn)
         {
+            shared_data->reachedGoal1 = 0;
+            shared_data->reachedGoal2 = 0;
+            shared_data->reachedGoal3 = 0;
+            shared_data->reachedGoal4 = 0;
+            shared_data->reachedGoal5 = 0;
+            shared_data->reachedGoal6 = 0;
+            shared_data->reachedGoal7 = 0;
+            shared_data->reachedGoal8 = 0;
+            shared_data->reachedGoal9 = 0;
+            shared_data->reachedGoal10 = 0;
             importObstacleCoordinates();
             spawn_random_g();
             shared_data->allowGoalSpawn = 0;

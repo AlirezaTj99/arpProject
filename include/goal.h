@@ -47,8 +47,8 @@ void spawn_random_g() {
           (gx6 == ox6 && gy6 == oy6) || (gx7 == ox7 && gy7 == oy7) || (gx8 == ox8 && gy8 == oy8) || (gx9 == ox9 && gy9 == oy9) || (gx10== ox10 && gy10== oy10))
     {
         int min = 1; // The minimum positive value for x and y
-        int max_x = COURT_X_LIM; // The maximum value for x
-        int max_y = COURT_Y_LIM; // The maximum value for y
+        int max_x = COURT_X_LIM -2; // The maximum value for x
+        int max_y = COURT_Y_LIM -2; // The maximum value for y
 
         gx1 = min + rand() % (max_x - min + 1);
         gx2 = min + rand() % (max_x - min + 1);
