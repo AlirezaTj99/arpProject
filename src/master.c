@@ -1,28 +1,17 @@
 #include "./../include/master.h"
 
 int main() {
-    // Set up signal handling
-    signal(SIGINT, handle_signal);
-    signal(SIGTERM, handle_signal);
 
-    // Initialize Shared Memory
-    int shm_fd = shm_open("/my_shared_memory", O_CREAT | O_RDWR, 0666);
-    if (shm_fd == -1) {
-        perror("shm_open");
-        exit(EXIT_FAILURE);
-    }
+    int fd1; 
+    char * myfifo = "/tmp/myfifo"; 
+    mkfifo(myfifo, 0666); 
+    char masterTerminate[80];
 
-    ftruncate(shm_fd, sizeof(SHARED_DATA));
-    shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-    if (shared_data == MAP_FAILED) {
-        perror("mmap");
-        exit(EXIT_FAILURE);
-    }
-    usleep(1000);
-
-    // Initialize User Interface
-    init_console_ui();
-    usleep(100);
+    int fd14; 
+    char * myfifo14 = "/tmp/myfifo14"; 
+    mkfifo(myfifo14, 0666); 
+    char str14[80]; 
+    char format_string14[80]="%d,%d,%d,%d,%d"; 
 
     // Spawn input Process
     char *arg_list_input[] = {"/usr/bin/konsole", "-e", "./bin/input", NULL};
@@ -44,33 +33,58 @@ int main() {
     char *arg_list_watchdog[] = {"/usr/bin/konsole", "-e", "./bin/watchdog", NULL};
     pid_t pid_watchdog = spawn("/usr/bin/konsole", arg_list_watchdog);
 
+    // Spawn inspection Process
+    char *arg_list_inspection[] = {"/usr/bin/konsole", "-e", "./bin/inspection", NULL};
+    pid_t pid_inspection = spawn("/usr/bin/konsole", arg_list_inspection);
+
+    fd14 = open(myfifo14,O_WRONLY);                      // Send the obstacles position to input processor
+    if (fd14 == -1) {
+        perror("Error opening FIFO14");
+    }
+    sprintf(str14, format_string14, pid_input, pid_force, pid_obstacle, pid_goal, pid_watchdog);
+    write(fd14, str14, strlen(str14)+1);
+    close(fd14);
+
     // Infinite Loop
     while (1) {
-        // Get mouse/resize commands in non-blocking mode...
-        int cmd = getch();
+        // fgets(masterTerminate, 80 , stdin); 
+        fd1 = open(myfifo,O_RDONLY); 
+        if (fd1 == -1) {
+            perror("Error opening FIFO1");
+        }
+        read(fd1, masterTerminate, 80); 
+        // sscanf(str1, format_string, &masterTerminate);
+        close(fd1);
 
-        if (shared_data->close_master) {
+        if (masterTerminate[0]=='1') {
+            kill(pid_goal, SIGTERM);  // Send the SIGTERM signal
+            kill(pid_force, SIGTERM);
+            kill(pid_input, SIGTERM);
+            kill(pid_obstacle, SIGTERM);
+            kill(pid_watchdog, SIGTERM);
+            
             // Perform cleanup
-            cleanup();
+            endwin();
+
+            // Wait for the processes to finish
+            int status_input, status_force, status_obstacle, status_goal, status_watchdog;
+            waitpid(pid_goal, &status_goal, 0);
+            waitpid(pid_input, &status_input, 0);
+            waitpid(pid_force, &status_force, 0);
+            waitpid(pid_obstacle, &status_obstacle, 0);
+            waitpid(pid_watchdog, &status_watchdog, 0);
 
             // Exit the program
             exit(0);
         }
+        sleep(1);
 
         // Update UI
-        update_console_ui(&shared_data->ee_x, &shared_data->ee_y, &shared_data->vx, &shared_data->vy, blackboard);
+        // update_console_ui(&shared_data->ee_x, &shared_data->ee_y, &shared_data->vx, &shared_data->vy, blackboard);
     }
-
-    // Cleanup
-    cleanup();
-
-    // Wait for the processes to finish
-    int status_input, status_force, status_obstacle, status_goal, status_watchdog;
-    waitpid(pid_goal, &status_goal, 0);
-    waitpid(pid_input, &status_input, 0);
-    waitpid(pid_force, &status_force, 0);
-    waitpid(pid_obstacle, &status_obstacle, 0);
-    waitpid(pid_watchdog, &status_watchdog, 0);
 
     return 0;
 }
+
+// Mahnaz Mohammad_Karimi   ********** s6212087
+// Alireza Tajabadi_Farahani    ****** s6212483

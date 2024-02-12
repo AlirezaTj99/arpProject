@@ -1,29 +1,63 @@
 #include "./../include/input.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
+    initscr(); // Initialize the window
+    cbreak();  // Line buffering disabled
+    noecho();  // Don't echo while we do getch
+
+    int fd1; 
+    char * myfifo = "/tmp/myfifo"; 
+    mkfifo(myfifo, 0666); 
+    char str1[80]; 
+    char format_string[80]="%d";
+    int masterTerminate = 1;
+
+    int fd2; 
+    char * myfifo2 = "/tmp/myfifo2"; 
+    mkfifo(myfifo2, 0666); 
+    char str2[80]; 
+    char format_string2[80]="%d";
+    int keySignal = 0;
+
+    int fd3;
+    char * myfifo3 = "/tmp/myfifo3";
+    mkfifo(myfifo3, 0666);
+    char str3[80];
+    char format_string3[80]="%f,%f,%f,%f";
+
+    int fd5;
+    char * myfifo5 = "/tmp/myfifo5";
+    mkfifo(myfifo5, 0666);
+    char str5[80];
+    char format_string5[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
+    int fd7;
+    char * myfifo7 = "/tmp/myfifo7";
+    mkfifo(myfifo7, 0666);
+    char str7[80];
+    char format_string7[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
+    int fd10;
+    char * myfifo10 = "/tmp/myfifo10";
+    mkfifo(myfifo10, 0666);
+    char str10[80];
+    char format_string10[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
     // Utility variable to avoid trigger resize event on launch
     int first_resize = TRUE;
 
     // End-effector coordinates
-    float ee_x, ee_y;
+    float ee_x = 0.0, ee_y = 0.0;
 
     // Defining the velocities
-    float vx = 0;
-    float vy = 0;
+    float vx = 0.0;
+    float vy = 0.0;
 
-    // Initialize Shared Memory
-    int shm_fd = shm_open("/my_shared_memory", O_RDWR, 0666);
-    if (shm_fd == -1) {
-        perror("shm_open");
-        exit(EXIT_FAILURE);
-    }
-    ftruncate(shm_fd, sizeof(SHARED_DATA));
-    shared_data = mmap(NULL, sizeof(SHARED_DATA), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    bool reachedAllTheGoals = 1;
 
     // Initialize User Interface 
     init_console_ui();
-    sleep(1);
 
     // Infinite loop
     while(TRUE)
@@ -33,114 +67,111 @@ int main(int argc, char const *argv[])
         usleep(1000);
 
         // If user resizes screen, re-draw UI
-        if(cmd == KEY_RESIZE) {
-            if(first_resize) {
-                first_resize = FALSE;
-            }
-            else {
-                reset_console_ui();
-            }
+        if(cmd == KEY_RESIZE || cmd == KEY_EVENT) 
+        {
+            reset_console_ui();
+            reset_console_ui();
         }
-        usleep(100);
-        shared_data->xForceIncrease = 0;
-        usleep(100);
-        shared_data->xForceDecrease = 0;
-        usleep(100);
-        shared_data->yForceIncrease = 0;
-        usleep(100);
-        shared_data->yForceDecrease = 0;
-        usleep(100);
-        shared_data->zeroForce = 0;
+        usleep(1000);
 
-        usleep(500);
+        fd2 = open(myfifo2,O_WRONLY); 
+        if (fd2 == -1) {
+            perror("Error opening FIFO2");
+        }
 
-        // if (vx!=0 || vy!=0) {
-        //     shared_data->computation_in_progress = 1;
-        // } else {
-        //     shared_data->computation_in_progress = 0;
-        // }
-        
         // The key commands ...
         switch (cmd)
         {
             // for each key press we apply a 1N force for 1 second, and send the signal to shared data.
             case '7':
-                shared_data->xForceDecrease = 1;
-                shared_data->yForceDecrease = 1;
-                // vx--;
-                // vy--;
+                keySignal = 7;
                 break;
             case '9':
-                shared_data->xForceIncrease = 1;
-                shared_data->yForceDecrease = 1;
-                // vx++;
-                // vy--;
+                keySignal = 9;
                 break;
             case '1':
-                shared_data->yForceIncrease = 1;
-                shared_data->xForceDecrease = 1;
-                // vx--;
-                // vy++;
+                keySignal = 1;
                 break;
             case '3':
-                shared_data->xForceIncrease = 1;
-                shared_data->yForceIncrease = 1;
-                // vx++;
-                // vy++;
+                keySignal = 3;
                 break;
             case '4':
-                shared_data->xForceDecrease = 1;
-                // vx--;
+                keySignal = 4;
                 break;
             case '6':
-                shared_data->xForceIncrease = 1;
-                // vx++;
+                keySignal = 6;
                 break;
             case '8':
-                shared_data->yForceDecrease = 1;
-                // vy--;
+                keySignal = 8;
                 break;
             case '2':
-                shared_data->yForceIncrease = 1;
-                // vy++;
+                keySignal = 2;
                 break;
             case '5':
-                shared_data->zeroForce = 1;
-                // vy = 0;
-                // vx = 0;
+                keySignal = 5;
                 break;
             case 'q':
-                shared_data->close_master = 1;  // Signal to master to close
-                usleep(1000);
+                fd1 = open(myfifo,O_WRONLY);    // Open fifo
+                sprintf(str1, format_string, masterTerminate);
+                write(fd1, str1, strlen(str1)+1); 
+                close(fd1); 
                 endwin();                       // End curses mode
                 exit(0);                        // Exit the program
                 break;
             default:
+                keySignal = 0;
                 break;
+        } 
+        sprintf(str2, format_string2, keySignal);
+        write(fd2, str2, strlen(str2)+1);
+        close(fd2);
+        usleep(1000);
+
+        fd3 = open(myfifo3,O_RDONLY);
+        if (fd3 == -1) {
+            perror("Error opening FIFO3");
         }
-        usleep(1000);
-        // we know that v=(delta)x so we can say in each second we have: ee_x' = ee_x + vx and the same for vy
-        // ee_x += (vx/100);
-        // ee_y += (vy/100);
-        
-        // Read the values of the floats
-        ee_x = shared_data->x;
-        usleep(1000);
-        ee_y = shared_data->y;
-        usleep(1000);
-        vx = shared_data->Vx;
-        usleep(1000);
-        vy = shared_data->Vy;
-        usleep(4000);
-            
+        read(fd3, str3, 80); 
+        sscanf(str3, format_string3, &ee_x, &ee_y, &vx, &vy);
+        close(fd2);
+
+        fd5 = open(myfifo5,O_RDONLY);       // Open fifo
+        if (fd5 == -1) {                    // Error check
+            perror("Error opening FIFO5");
+        }
+        read(fd5, str5, 80);                // Read from fifo
+        sscanf(str5, format_string5, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10);
+        close(fd5);                         // Close the fifo
+
+        fd7 = open(myfifo7,O_RDONLY);
+        if (fd7 == -1) {
+            perror("Error opening FIFO7");
+        }
+        read(fd7, str7, 80);
+        sscanf(str7, format_string7, &gx1, &gx2, &gx3, &gx4, &gx5, &gx6, &gx7, &gx8, &gx9, &gx10, &gy1, &gy2, &gy3, &gy4, &gy5, &gy6, &gy7, &gy8, &gy9, &gy10);
+        close(fd7);
+
+        fd10 = open(myfifo10,O_RDONLY);
+        if (fd10 == -1) {
+            perror("Error opening FIFO10");
+        }
+        read(fd10, str10, 80);
+        sscanf(str10, format_string10, &reachedGoal1, &reachedGoal2, &reachedGoal3, &reachedGoal4, &reachedGoal5, &reachedGoal6, &reachedGoal7, &reachedGoal8, &reachedGoal9, &reachedGoal10);
+        close(fd10);
+
         // Update UI
-        update_console_ui(&ee_x, &ee_y, &vx, &vy, blackboard);
+        update_console_ui(&ee_x, &ee_y, &vx, &vy);
+
+        usleep(2000);
     }
 
     // Cleanup
     endwin();
-    munmap(blackboard, sizeof(BLACKBOARD_DATA));
-    shm_unlink("/my_shared_memory");
 
     return 0;
 }
+// 0.007000
+
+
+// Mahnaz Mohammad_Karimi   ********** s6212087
+// Alireza Tajabadi_Farahani    ****** s6212483

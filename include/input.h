@@ -14,6 +14,9 @@
 #include <time.h>
 #include <stdbool.h>
 
+#include <sys/stat.h> 
+#include <sys/types.h> 
+
 // Include other necessary modules
 #include "drone.h"
 
@@ -45,7 +48,7 @@ void init_console_ui() {
     refresh();
 }
 
-void update_console_ui(float *ee_x, float *ee_y, float *vx, float *vy, BLACKBOARD_DATA *blackboard) {
+void update_console_ui(float *ee_x, float *ee_y, float *vx, float *vy) {
 
     // check if next drone position is within limits
     check_drone_within_limits(ee_x, ee_y);
@@ -55,12 +58,8 @@ void update_console_ui(float *ee_x, float *ee_y, float *vx, float *vy, BLACKBOAR
 
     // Update string message for drone position
     draw_drone_msg(*ee_x, *ee_y, *vx, *vy);
-    
-    // Display blackboard data in the ncurses window
-    mvprintw(2, 0, "Message on the Blackboard: %s", blackboard->message);
 
     refresh();
-
 }
 
 void reset_console_ui() {

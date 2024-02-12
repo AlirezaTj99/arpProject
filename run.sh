@@ -1,38 +1,81 @@
+#!/bin/bash
+
 clear
-echo 'started compiling'
+echo 'Started compiling'
 
-konsole  -e gcc src/goal.c -o bin/goal -lncurses -lm -lrt &&
-echo '  1 - the goal.c compiled successfully'
-# sleep 1
+# Compile goal.c
+gcc src/goal.c -o bin/goal -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling goal.c'
+    exit 1
+else
+    echo '  1 - goal.c compiled successfully'
+fi
 
-konsole  -e gcc src/court.c -o bin/court -lncurses -lm -lrt &&
-echo '  2 - the court.c compiled successfully'
-# sleep 1
+# Compile inspection.c
+gcc src/inspection.c -o bin/inspection -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling inspection.c'
+    exit 1
+else
+    echo '  2 - inspection.c compiled successfully'
+fi
 
-konsole  -e gcc src/drone.c -o bin/drone -lncurses -lm -lrt &&
-echo '  3 - the drone.c compiled successfully'
-# sleep 1
+# # Compile drone.c
+# gcc src/drone.c -o bin/drone -lncurses -lm -lrt
+# if [ $? -ne 0 ]; then
+#     echo 'Error compiling drone.c'
+#     exit 1
+# else
+#     echo '  3 - drone.c compiled successfully'
+# fi
 
-konsole  -e gcc src/input.c -o bin/input -lncurses -lm -lrt &&
-echo '  4 - the input.c compiled successfully'
-# sleep 1
+# Compile input.c
+gcc src/input.c -o bin/input -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling input.c'
+    exit 1
+else
+    echo '  3 - input.c compiled successfully'
+fi
 
-konsole  -e gcc src/force.c -o bin/force -lncurses -lm -lrt &&
-echo '  5 - the force.c compiled successfully'
-# sleep 1
+# Compile force.c
+gcc src/force.c -o bin/force -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling force.c'
+    exit 1
+else
+    echo '  4 - force.c compiled successfully'
+fi
 
-konsole  -e gcc src/obstacle.c -o bin/obstacle -lncurses -lm -lrt &&
-echo '  6 - the obstacle.c compiled successfully'
-# sleep 1
+# Compile obstacle.c
+gcc src/obstacle.c -o bin/obstacle -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling obstacle.c'
+    exit 1
+else
+    echo '  5 - obstacle.c compiled successfully'
+fi
 
-konsole  -e gcc src/master.c -o bin/master -lncurses -lm -lrt &&
-echo '  7 - the src/master.c compiled successfully'
-# sleep 1
+# Compile master.c
+gcc src/master.c -o bin/master -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling master.c'
+    exit 1
+else
+    echo '  6 - master.c compiled successfully'
+fi
 
-konsole  -e gcc src/watchdog.c -o bin/watchdog -lncurses -lm -lrt &&
-echo '  8 - the src/watchDog.c compiled successfully'
-# sleep 1
+# Compile watchdog.c
+gcc src/watchdog.c -o bin/watchdog -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling watchdog.c'
+    exit 1
+else
+    echo '  7 - watchdog.c compiled successfully'
+fi
 
+# Countdown before running the code
 for ((i=2 ; i>0 ; i--)); do
     clear
     echo "Running the code in $i seconds"
@@ -40,7 +83,12 @@ for ((i=2 ; i>0 ; i--)); do
 done
 
 clear
-
 echo "Running the code ..."
 
-konsole  -e ./bin/master
+# Run the master process
+./bin/master
+
+
+
+# // Mahnaz Mohammad_Karimi   ********** s6212087
+# // Alireza Tajabadi_Farahani    ****** s6212483

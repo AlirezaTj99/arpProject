@@ -3,38 +3,42 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <sys/stat.h> 
+#include <sys/types.h>
+
 int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
 int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
 
-void importObstacleCoordinates(){
+int gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
+int gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
 
-    ox1 = shared_data->ox1 ;
-    ox2 = shared_data->ox2 ;
-    ox3 = shared_data->ox3 ;
-    ox4 = shared_data->ox4 ;
-    ox5 = shared_data->ox5 ;
-    ox6 = shared_data->ox6 ;
-    ox7 = shared_data->ox7 ;
-    ox8 = shared_data->ox8 ;
-    ox9 = shared_data->ox9 ;
-    ox10 = shared_data->ox10 ;
+// void importObstacleCoordinates(){
 
-    oy1 = shared_data->oy1 ;
-    oy2 = shared_data->oy2 ;
-    oy3 = shared_data->oy3 ;
-    oy4 = shared_data->oy4 ;
-    oy5 = shared_data->oy5 ;
-    oy6 = shared_data->oy6 ;
-    oy7 = shared_data->oy7 ;
-    oy8 = shared_data->oy8 ;
-    oy9 = shared_data->oy9 ;
-    oy10 = shared_data->oy10 ;
-}
+//     ox1 = shared_data->ox1 ;
+//     ox2 = shared_data->ox2 ;
+//     ox3 = shared_data->ox3 ;
+//     ox4 = shared_data->ox4 ;
+//     ox5 = shared_data->ox5 ;
+//     ox6 = shared_data->ox6 ;
+//     ox7 = shared_data->ox7 ;
+//     ox8 = shared_data->ox8 ;
+//     ox9 = shared_data->ox9 ;
+//     ox10 = shared_data->ox10 ;
+
+//     oy1 = shared_data->oy1 ;
+//     oy2 = shared_data->oy2 ;
+//     oy3 = shared_data->oy3 ;
+//     oy4 = shared_data->oy4 ;
+//     oy5 = shared_data->oy5 ;
+//     oy6 = shared_data->oy6 ;
+//     oy7 = shared_data->oy7 ;
+//     oy8 = shared_data->oy8 ;
+//     oy9 = shared_data->oy9 ;
+//     oy10 = shared_data->oy10 ;
+// }
 
 void spawn_random_g() {
     float ee_x, ee_y;
-    int gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
-    int gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
 
     // ee_x = shared_data->x;
     // ee_y = shared_data->y;
@@ -75,46 +79,46 @@ void spawn_random_g() {
     }
     
     // Sending data to shared memory.
-    shared_data->gx1 = gx1;
-    shared_data->gx2 = gx2;
-    shared_data->gx3 = gx3;
-    shared_data->gx4 = gx4;
-    shared_data->gx5 = gx5;
-    shared_data->gx6 = gx6;
-    shared_data->gx7 = gx7;
-    shared_data->gx8 = gx8;
-    shared_data->gx9 = gx9;
-    shared_data->gx10 = gx10;
+    // shared_data->gx1 = gx1;
+    // shared_data->gx2 = gx2;
+    // shared_data->gx3 = gx3;
+    // shared_data->gx4 = gx4;
+    // shared_data->gx5 = gx5;
+    // shared_data->gx6 = gx6;
+    // shared_data->gx7 = gx7;
+    // shared_data->gx8 = gx8;
+    // shared_data->gx9 = gx9;
+    // shared_data->gx10 = gx10;
 
-    shared_data->gy1 = gy1;
-    shared_data->gy2 = gy2;
-    shared_data->gy3 = gy3;
-    shared_data->gy4 = gy4;
-    shared_data->gy5 = gy5;
-    shared_data->gy6 = gy6;
-    shared_data->gy7 = gy7;
-    shared_data->gy8 = gy8;
-    shared_data->gy9 = gy9;
-    shared_data->gy10 = gy10;
+    // shared_data->gy1 = gy1;
+    // shared_data->gy2 = gy2;
+    // shared_data->gy3 = gy3;
+    // shared_data->gy4 = gy4;
+    // shared_data->gy5 = gy5;
+    // shared_data->gy6 = gy6;
+    // shared_data->gy7 = gy7;
+    // shared_data->gy8 = gy8;
+    // shared_data->gy9 = gy9;
+    // shared_data->gy10 = gy10;
 
-    printf("%.2f    ________    %d \n",ee_x,gx1);
-    printf("%.2f    ________    %d \n",ee_x,gx2);
-    printf("%.2f    ________    %d \n",ee_x,gx3);
-    printf("%.2f    ________    %d \n",ee_x,gx4);
-    printf("%.2f    ________    %d \n",ee_x,gx5);
-    printf("%.2f    ________    %d \n",ee_x,gx6);
-    printf("%.2f    ________    %d \n",ee_x,gx7);
-    printf("%.2f    ________    %d \n",ee_x,gx8);
-    printf("%.2f    ________    %d \n",ee_x,gx9);
-    printf("%.2f    ________    %d \n",ee_x,gx10);
-    printf("%.2f    ________    %d \n",ee_y,gy1);
-    printf("%.2f    ________    %d \n",ee_y,gy2);
-    printf("%.2f    ________    %d \n",ee_y,gy3);
-    printf("%.2f    ________    %d \n",ee_y,gy4);
-    printf("%.2f    ________    %d \n",ee_y,gy5);
-    printf("%.2f    ________    %d \n",ee_y,gy6);
-    printf("%.2f    ________    %d \n",ee_y,gy7);
-    printf("%.2f    ________    %d \n",ee_y,gy8);
-    printf("%.2f    ________    %d \n",ee_y,gy9);
-    printf("%.2f    ________    %d \n",ee_y,gy10);
+    printf("%d    ________    %d \n",ox1,gx1);
+    printf("%d    ________    %d \n",ox2,gx2);
+    printf("%d    ________    %d \n",ox3,gx3);
+    printf("%d    ________    %d \n",ox4,gx4);
+    printf("%d    ________    %d \n",ox5,gx5);
+    printf("%d    ________    %d \n",ox6,gx6);
+    printf("%d    ________    %d \n",ox7,gx7);
+    printf("%d    ________    %d \n",ox8,gx8);
+    printf("%d    ________    %d \n",ox9,gx9);
+    printf("%d    ________    %d \n",ox10,gx10);
+    printf("%d    ________    %d \n",oy1,gy1);
+    printf("%d    ________    %d \n",oy2,gy2);
+    printf("%d    ________    %d \n",oy3,gy3);
+    printf("%d    ________    %d \n",oy4,gy4);
+    printf("%d    ________    %d \n",oy5,gy5);
+    printf("%d    ________    %d \n",oy6,gy6);
+    printf("%d    ________    %d \n",oy7,gy7);
+    printf("%d    ________    %d \n",oy8,gy8);
+    printf("%d    ________    %d \n",oy9,gy9);
+    printf("%d    ________    %d \n",oy10,gy10);
 }

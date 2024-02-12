@@ -1,6 +1,3 @@
-// #ifndef MASTER_H
-#define MASTER_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -29,16 +26,4 @@ int spawn(const char *program, char *arg_list[]) {
             return 1;
         }
     }
-}
-
-void cleanup() {
-    munmap(shared_data, sizeof(SHARED_DATA));
-    shm_unlink("/my_shared_memory");
-    endwin();
-}
-
-void handle_signal(int signum) {
-    // Handle signals (if needed)
-    cleanup();
-    exit(EXIT_SUCCESS);
 }

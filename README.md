@@ -1,9 +1,27 @@
 # ARP-Drone-Assignment
-Base project structure for the first *Advanced and Robot Programming* (ARP) assignment.
-The project provides the basic functionalities for the **Command** and **Inspection processes**, both of which are implemented through the *ncurses library* as simple GUIs. In particular, the repository is organized as follows:
-- The `src` folder contains the source code for the Command, Inspection and Master processes.
-- The `include` folder contains all the data structures and methods used within the ncurses framework to build the two GUIs. Unless you want to expand the graphical capabilities of the UIs (which requires understanding how ncurses works), you can ignore the content of this folder, as it already provides you with all the necessary functionalities.
-- The `bin` folder is where the executable files are expected to be after compilation
+This project is part of the *Advanced and Robot Programming* (ARP) assignment. It simulates a drone navigation system with various interconnected processes, each performing specific tasks. The project is structured to use the *ncurses library* for graphical interfaces and inter-process communication via FIFOs (named pipes). The organization of the repository is as follows:
+- The `src` folder contains the source code for all the processes including Command (Input), Force, Master, Watchdog, Goal, Obstacle, and Inspection.
+- The `include` folder holds the headers and data structures used within the ncurses framework and other functionalities. This folder provides necessary utilities for the project and generally does not require modification.
+- The `bin` folder is designated for the compiled executable files.
+
+## Processes Overview
+- **Input Processor:** Handles user inputs, renders the drone, court, obstacles, and goals on the screen.
+- **Force Processor:** Calculates forces, velocities, and drone positions. Communicates with the Input, Goal, and Obstacle processors.
+- **Master Processor:** Responsible for spawning and terminating other processors based on signals from the user or the Watchdog.
+- **Watchdog Processor:** Monitors other processors, especially the Force processor. It terminates the network if no movement signal is received from the drone.
+- **Goal Processor:** Generates goal coordinates and communicates them to relevant processors.
+- **Obstacle Processor:** Manages the spawning of obstacles on the court.
+- **Inspection Processor:** Displays running and stopped processors. It remains open post-termination of other processors to provide an overview of the process flow.
+
+## Gameplay and Mechanics
+- The system will respawn obstacles and goals at new positions once all goals are reached.
+- Use the Input window for gameplay. If you encounter any display issues (missing drone, court, or obstacles), resize the window manually (dragging the corners) to refresh the display.
+
+## ncurses Installation
+Install the ncurses library using:
+```console
+sudo apt-get install libncurses-dev
+
 
 ## ncurses installation
 To install the ncurses library, simply open a terminal and type the following commands:
@@ -47,3 +65,131 @@ If you're drone stops for 25 seconds you will loose and the watchdog will close 
 ## Troubleshooting
 
 Should you experience some weird behavior after launching the application simply try to resize the terminal window, it should solve the bug.
+
+
+## Master processor pseudocode
+```
+FUNCTION main
+    Initialize ncurses window
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read user input
+        Open and write to FIFO based on input
+        Read from FIFOs to get drone and environment data
+        Update the UI with the new data
+        Sleep for a short duration
+    END WHILE
+
+    Cleanup and close ncurses window
+END FUNCTION
+```
+## Input processor pseudocode
+
+```
+FUNCTION main
+    Initialize ncurses window
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read user input
+        Open and write to FIFO based on input
+        Read from FIFOs to get drone and environment data
+        Update the UI with the new data
+        Sleep for a short duration
+    END WHILE
+
+    Cleanup and close ncurses window
+END FUNCTION
+
+```
+
+## obstacle processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        IF all goals are reached THEN
+            Generate new obstacle positions
+        END IF
+        Write obstacle positions to FIFOs
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+## goal processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        IF all goals are reached THEN
+            Generate new goal positions
+        END IF
+        Write goal positions to FIFOs
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+## force processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read key signals and environment data from FIFOs
+        Calculate forces and update drone's position and velocity
+        Write updated drone data to FIFOs
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+## Watchdog processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read drone activity status from FIFO
+        IF no activity for a threshold duration THEN
+            Send termination signal to master processor
+            Exit program
+        END IF
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+## Inspection processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read PIDs of other processes from FIFO
+        Check if each process is running
+        Update the UI with process status
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+
+
+
+// Mahnaz Mohammad_Karimi   ********** s6212087
+// Alireza Tajabadi_Farahani    ****** s6212483

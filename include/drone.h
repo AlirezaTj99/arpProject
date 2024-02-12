@@ -4,6 +4,14 @@
 // Include other necessary modules
 #include "court.h"
 
+int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
+int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
+
+int gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
+int gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
+
+bool reachedGoal1 = 0, reachedGoal2 = 0, reachedGoal3 = 0, reachedGoal4 = 0, reachedGoal5 = 0, reachedGoal6 = 0, reachedGoal7 = 0, reachedGoal8 = 0, reachedGoal9 = 0, reachedGoal10 = 0;
+
 // Print message with drone real coordinates on top of COURT drawing
 void draw_drone_msg(float x, float y, float vx, float vy) {
 
@@ -29,30 +37,30 @@ void draw_drone_at(float ee_x, float ee_y) {
         }
     }
 
-    int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
-    int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
+    // int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
+    // int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
 
-    ox1 = shared_data->ox1 ;
-    ox2 = shared_data->ox2 ;
-    ox3 = shared_data->ox3 ;
-    ox4 = shared_data->ox4 ;
-    ox5 = shared_data->ox5 ;
-    ox6 = shared_data->ox6 ;
-    ox7 = shared_data->ox7 ;
-    ox8 = shared_data->ox8 ;
-    ox9 = shared_data->ox9 ;
-    ox10 = shared_data->ox10 ;
+    // ox1 = shared_data->ox1 ;
+    // ox2 = shared_data->ox2 ;
+    // ox3 = shared_data->ox3 ;
+    // ox4 = shared_data->ox4 ;
+    // ox5 = shared_data->ox5 ;
+    // ox6 = shared_data->ox6 ;
+    // ox7 = shared_data->ox7 ;
+    // ox8 = shared_data->ox8 ;
+    // ox9 = shared_data->ox9 ;
+    // ox10 = shared_data->ox10 ;
 
-    oy1 = shared_data->oy1 ;
-    oy2 = shared_data->oy2 ;
-    oy3 = shared_data->oy3 ;
-    oy4 = shared_data->oy4 ;
-    oy5 = shared_data->oy5 ;
-    oy6 = shared_data->oy6 ;
-    oy7 = shared_data->oy7 ;
-    oy8 = shared_data->oy8 ;
-    oy9 = shared_data->oy9 ;
-    oy10 = shared_data->oy10 ;
+    // oy1 = shared_data->oy1 ;
+    // oy2 = shared_data->oy2 ;
+    // oy3 = shared_data->oy3 ;
+    // oy4 = shared_data->oy4 ;
+    // oy5 = shared_data->oy5 ;
+    // oy6 = shared_data->oy6 ;
+    // oy7 = shared_data->oy7 ;
+    // oy8 = shared_data->oy8 ;
+    // oy9 = shared_data->oy9 ;
+    // oy10 = shared_data->oy10 ;
 
     attron(A_BOLD | COLOR_PAIR(2));
     mvaddch(court.starty + oy1, court.startx + ox1, 'O');
@@ -67,71 +75,68 @@ void draw_drone_at(float ee_x, float ee_y) {
     mvaddch(court.starty + oy10, court.startx + ox10, 'O');
     attroff(A_BOLD | COLOR_PAIR(2));
 
-    float gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
-    float gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
+    // gx1 = shared_data->gx1 ;
+    // gx2 = shared_data->gx2 ;
+    // gx3 = shared_data->gx3 ;
+    // gx4 = shared_data->gx4 ;
+    // gx5 = shared_data->gx5 ;
+    // gx6 = shared_data->gx6 ;
+    // gx7 = shared_data->gx7 ;
+    // gx8 = shared_data->gx8 ;
+    // gx9 = shared_data->gx9 ;
+    // gx10 = shared_data->gx10 ;
 
-    gx1 = shared_data->gx1 ;
-    gx2 = shared_data->gx2 ;
-    gx3 = shared_data->gx3 ;
-    gx4 = shared_data->gx4 ;
-    gx5 = shared_data->gx5 ;
-    gx6 = shared_data->gx6 ;
-    gx7 = shared_data->gx7 ;
-    gx8 = shared_data->gx8 ;
-    gx9 = shared_data->gx9 ;
-    gx10 = shared_data->gx10 ;
-
-    gy1 = shared_data->gy1 ;
-    gy2 = shared_data->gy2 ;
-    gy3 = shared_data->gy3 ;
-    gy4 = shared_data->gy4 ;
-    gy5 = shared_data->gy5 ;
-    gy6 = shared_data->gy6 ;
-    gy7 = shared_data->gy7 ;
-    gy8 = shared_data->gy8 ;
-    gy9 = shared_data->gy9 ;
-    gy10 = shared_data->gy10 ;
+    // gy1 = shared_data->gy1 ;
+    // gy2 = shared_data->gy2 ;
+    // gy3 = shared_data->gy3 ;
+    // gy4 = shared_data->gy4 ;
+    // gy5 = shared_data->gy5 ;
+    // gy6 = shared_data->gy6 ;
+    // gy7 = shared_data->gy7 ;
+    // gy8 = shared_data->gy8 ;
+    // gy9 = shared_data->gy9 ;
+    // gy10 = shared_data->gy10 ;
 
     attron(A_BOLD | COLOR_PAIR(3));
-    if(!shared_data->reachedGoal1)
+    if(!reachedGoal1)
         {
         mvaddch(court.starty + gy1, court.startx + gx1, '1');
         }
-    if(!shared_data->reachedGoal2)
+    if(!reachedGoal2)
         {
-    mvaddch(court.starty + gy2, court.startx + gx2, '2');
+        mvaddch(court.starty + gy2, court.startx + gx2, '2');
         }
-    if(!shared_data->reachedGoal3)
+    if(!reachedGoal3)
         {
-    mvaddch(court.starty + gy3, court.startx + gx3, '3');
+        mvaddch(court.starty + gy3, court.startx + gx3, '3');
         }
-    if(!shared_data->reachedGoal4)
+    if(!reachedGoal4)
         {
-    mvaddch(court.starty + gy4, court.startx + gx4, '4');
+        mvaddch(court.starty + gy4, court.startx + gx4, '4');
         }
-    if(!shared_data->reachedGoal5)
+    if(!reachedGoal5)
         {
-    mvaddch(court.starty + gy5, court.startx + gx5, '5');
+        mvaddch(court.starty + gy5, court.startx + gx5, '5');
         }
-    if(!shared_data->reachedGoal6)
+    if(!reachedGoal6)
         {
-    mvaddch(court.starty + gy6, court.startx + gx6, '6');
+        mvaddch(court.starty + gy6, court.startx + gx6, '6');
         }
-    if(!shared_data->reachedGoal7)
+    if(!reachedGoal7)
         {
-    mvaddch(court.starty + gy7, court.startx + gx7, '7');
+        mvaddch(court.starty + gy7, court.startx + gx7, '7');
         }
-    if(!shared_data->reachedGoal8)
+    if(!reachedGoal8)
         {
-    mvaddch(court.starty + gy8, court.startx + gx8, '8');
+        mvaddch(court.starty + gy8, court.startx + gx8, '8');
         }
-    if(!shared_data->reachedGoal9)
+    if(!reachedGoal9)
         {
-    mvaddch(court.starty + gy9, court.startx + gx9, '9');
+        mvaddch(court.starty + gy9, court.startx + gx9, '9');
         }
-    if(!shared_data->reachedGoal10)
+    if(!reachedGoal10)
         {
-    mvaddch(court.starty + gy10, court.startx + gx10, '0');
+        mvaddch(court.starty + gy10, court.startx + gx10, '0');
         }
     attroff(A_BOLD | COLOR_PAIR(3));
 
