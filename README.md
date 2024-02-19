@@ -74,6 +74,9 @@ If you're drone stops for 25 seconds you will loose and the watchdog will close 
 
 Should you experience some weird behavior after launching the application simply try to resize the terminal window, it should solve the bug.
 
+![System Process Flow](https://github.com/AlirezaTj99/arpProject/assets/150545194/97db8a1e-cfd3-4714-8423-d504965ff642)
+
+
 
 ## Master processor pseudocode
 ```
@@ -247,7 +250,7 @@ FUNCTION main
     END WHILE
 END FUNCTION
 
-```![System Process Flow](https://github.com/AlirezaTj99/arpProject/assets/150545194/97db8a1e-cfd3-4714-8423-d504965ff642)
+```
 
 
 
