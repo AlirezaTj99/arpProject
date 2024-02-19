@@ -1,17 +1,25 @@
 # ARP-Drone-Assignment
-This project is part of the *Advanced and Robot Programming* (ARP) assignment. It simulates a drone navigation system with various interconnected processes, each performing specific tasks. The project is structured to use the *ncurses library* for graphical interfaces and inter-process communication via FIFOs (named pipes). The organization of the repository is as follows:
-- The `src` folder contains the source code for all the processes including Command (Input), Force, Master, Watchdog, Goal, Obstacle, and Inspection.
-- The `include` folder holds the headers and data structures used within the ncurses framework and other functionalities. This folder provides necessary utilities for the project and generally does not require modification.
-- The `bin` folder is designated for the compiled executable files.
+This project is part of the *Advanced and Robot Programming* (ARP) assignment. It simulates a drone navigation system with various interconnected processes, each performing specific tasks. The project is structured to use the *ncurses library* for graphical interfaces, the socket and inter-process communication via FIFOs (named pipes). The organization of the repository is as follows: the serverSide and clientSide
+- In serverSide we have:
+    - The `src` folder contains the source code for all the processes including sMaster, Goal, Obstacle, and server.
+    - The `include` folder holds the headers and data structures used within the ncurses framework and other functionalities. This folder provides necessary utilities for the project and generally does not require modification.
+    - The `bin` folder is designated for the compiled executable files.
+- In clientSide we have:
+    - The `src` folder contains the source code for all the processes including Command (Input), Force, Master, Watchdog, client, and Inspection.
+    - The `include` folder holds the headers and data structures used within the ncurses framework and other functionalities. This folder provides necessary utilities for the project and generally does not require modification.
+    - The `bin` folder is designated for the compiled executable files.
 
 ## Processes Overview
+- **Client Processor:** Handles the connection with server, it acts as a terminal for communication between other processors and obstacle and goal.
 - **Input Processor:** Handles user inputs, renders the drone, court, obstacles, and goals on the screen.
 - **Force Processor:** Calculates forces, velocities, and drone positions. Communicates with the Input, Goal, and Obstacle processors.
-- **Master Processor:** Responsible for spawning and terminating other processors based on signals from the user or the Watchdog.
+- **Master Processor:** Responsible for spawning and terminating other processors inside clientSide folder based on signals from the user or the Watchdog.
 - **Watchdog Processor:** Monitors other processors, especially the Force processor. It terminates the network if no movement signal is received from the drone.
+- **Inspection Processor:** Displays running and stopped processors. It remains open -for 10 seconds- post-termination of other processors to provide an overview of the process flow.
 - **Goal Processor:** Generates goal coordinates and communicates them to relevant processors.
 - **Obstacle Processor:** Manages the spawning of obstacles on the court.
-- **Inspection Processor:** Displays running and stopped processors. It remains open post-termination of other processors to provide an overview of the process flow.
+- **Server Processor:** Handles the connection with client, it acts as a terminal for communication between obstacle and goal and other processors.
+- **sMaster Processor:** Responsible for spawning and terminating other processors inside clientSide folder based on signals from the server.
 
 ## Gameplay and Mechanics
 - The system will respawn obstacles and goals at new positions once all goals are reached.
@@ -34,7 +42,7 @@ sudo apt-get install libncurses5-dev libncursesw5-dev
 ```
 
 ## Compiling and running the code
-The processes depend on the ncurses library, which needs to be linked during the compilation step. Furthermore, the Inspection process also uses the mathematical library for some additional computation. Therefore the steps to compile are included in **run.sh** file, after compiling, **assuming you have Konsole installed in your system** as per the professor's indications, you can **simply run the Master executable**, which will be responsible of spawning the two GUIs this step is also included in **run.sh** file; all you have to do is to simply run this code as followed:
+The processes depend on the ncurses library, which needs to be linked during the compilation step. Furthermore, the Inspection process also uses the mathematical library for some additional computation. Therefore the steps to compile are included in both **run.sh** files inside the serverSide folder and clientSide, after compiling, **assuming you have Konsole installed in your system** as per the professor's indications, you can **simply run the Master executables**, which will be responsible of spawning the GUIs, this step is also included in **run.sh** files; all you have to do is to simply run this code as followed in both pc's:
 ```console
 ./run.sh
 ```
@@ -84,6 +92,24 @@ FUNCTION main
     Cleanup and close ncurses window
 END FUNCTION
 ```
+
+## client processor pseudocode
+```
+FUNCTION main
+    Initialize ncurses window
+    Create and open SOCKET and FIFOs for communication
+
+    WHILE TRUE
+        Read user input
+        write massage to server
+        read the recieved data from server
+        Open and write to FIFO based on recieved massage
+    END WHILE
+
+    Cleanup and close ncurses window
+END FUNCTION
+```
+
 ## Input processor pseudocode
 
 ```
@@ -100,40 +126,6 @@ FUNCTION main
     END WHILE
 
     Cleanup and close ncurses window
-END FUNCTION
-
-```
-
-## obstacle processor pseudocode
-
-```
-FUNCTION main
-    Create and open FIFOs for communication
-
-    WHILE TRUE
-        IF all goals are reached THEN
-            Generate new obstacle positions
-        END IF
-        Write obstacle positions to FIFOs
-        Sleep for a short duration
-    END WHILE
-END FUNCTION
-
-```
-
-## goal processor pseudocode
-
-```
-FUNCTION main
-    Create and open FIFOs for communication
-
-    WHILE TRUE
-        IF all goals are reached THEN
-            Generate new goal positions
-        END IF
-        Write goal positions to FIFOs
-        Sleep for a short duration
-    END WHILE
 END FUNCTION
 
 ```
@@ -188,6 +180,74 @@ END FUNCTION
 
 ```
 
+## sMaster processor pseudocode
+```
+FUNCTION main
+    Initialize ncurses window
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        Read user input
+        Open and write to FIFO based on input
+        Read from FIFOs to get drone and environment data
+        Update the UI with the new data
+        Sleep for a short duration
+    END WHILE
+
+    Cleanup and close ncurses window
+END FUNCTION
+```
+
+## server processor pseudocode
+```
+FUNCTION main
+    Initialize ncurses window
+    Create and open FIFOs AND SOCKET for communication
+
+    WHILE TRUE
+        Read client massage
+        Open and write to FIFO based on input
+        Read from FIFOs to get obstacle and goals data
+        write the recieved data to client
+    END WHILE
+
+    Cleanup and close ncurses window
+END FUNCTION
+```
+
+## obstacle processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        IF all goals are reached THEN
+            Generate new obstacle positions
+        END IF
+        Write obstacle positions to FIFOs
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
+
+## goal processor pseudocode
+
+```
+FUNCTION main
+    Create and open FIFOs for communication
+
+    WHILE TRUE
+        IF all goals are reached THEN
+            Generate new goal positions
+        END IF
+        Write goal positions to FIFOs
+        Sleep for a short duration
+    END WHILE
+END FUNCTION
+
+```
 
 
 
