@@ -12,6 +12,9 @@ int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
 int gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10;
 int gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10;
 
+int max_x = 99; // The maximum value for x
+int max_y = 39; // The maximum value for y
+
 void spawn_random_g() {
     float ee_x, ee_y;
 
@@ -24,8 +27,7 @@ void spawn_random_g() {
           (gx6 == ox6 && gy6 == oy6) || (gx7 == ox7 && gy7 == oy7) || (gx8 == ox8 && gy8 == oy8) || (gx9 == ox9 && gy9 == oy9) || (gx10== ox10 && gy10== oy10))
     {
         int min = 1; // The minimum positive value for x and y
-        int max_x = COURT_X_LIM -2; // The maximum value for x
-        int max_y = COURT_Y_LIM -2; // The maximum value for y
+        
 
         gx1 = min + rand() % (max_x - min + 1);
         gx2 = min + rand() % (max_x - min + 1);

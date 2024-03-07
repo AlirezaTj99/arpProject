@@ -11,6 +11,9 @@ float ee_x, ee_y;
 int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
 int oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10;
 
+int max_x = 99; // The maximum value for x
+int max_y = 39; // The maximum value for y
+
 void spawn_random_o() {
     
     ox1 = ee_x;
@@ -30,8 +33,7 @@ void spawn_random_o() {
           ((ee_x - 6) < ox10 && (ee_x + 6) > ox10) && ((ee_y - 6) < oy10 && (ee_y + 6) > oy10))
     {
         int min = 2; // The minimum positive value for x and y
-        int max_x = COURT_X_LIM-2; // The maximum value for x
-        int max_y = COURT_Y_LIM-2; // The maximum value for y
+        
 
         ox1 = min + rand() % (max_x - min + 1);
         ox2 = min + rand() % (max_x - min + 1);

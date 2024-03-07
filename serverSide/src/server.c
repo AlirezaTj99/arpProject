@@ -104,85 +104,146 @@ void dostuff (int sock)
     char str5s[80];
     char format_string5s[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
 
-    int fd7s;
-    char * myfifo7s = "/tmp/myfifo7s";
-    mkfifo(myfifo7s, 0666);
-    char str7s[80];
-    char format_string7s[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+    int fd6;
+    char * myfifo6 = "/tmp/myfifo6";
+    mkfifo(myfifo6, 0666);
 
-    int fd7; 
-    char * myfifo7 = "/tmp/myfifo7"; 
-    mkfifo(myfifo7, 0666); 
-    char str7[80]; 
-    char format_string7[80]="%d,%d";
+    // int fd7; 
+    // char * myfifo7 = "/tmp/myfifo7"; 
+    // mkfifo(myfifo7, 0666); 
+    // char str7[80]; 
+    // char format_string7[80]="%d,%d";
+
+    int fd9;
+    char * myfifo9 = "/tmp/myfifo9";
+    mkfifo(myfifo9, 0666);
 
     int n;
     char buffer[256];
     int pid_obstacle;
     int pid_goal;
 
-    fd7 = open(myfifo7,O_RDONLY);                      // Send the obstacles position to input processor
-    if (fd7 == -1) {
-        perror("Error opening FIFO14");
-    }
-    read(fd7, str7, strlen(str7)+1);
-    sscanf(str7, format_string7, &pid_obstacle, &pid_goal);
-    close(fd7);
+    // fd7 = open(myfifo7,O_RDONLY);                      // Send the obstacles position to input processor
+    // if (fd7 == -1) {
+    //     perror("Error opening FIFO14");
+    // }
+    // read(fd7, str7, strlen(str7)+1);
+    // sscanf(str7, format_string7, &pid_obstacle, &pid_goal);
+    // close(fd7);
       
     bzero(buffer,256);
     n = read(sock,buffer,255);
-    sscanf(buffer, format_string4, &masterTerminate, &reachedAllTheGoals, &ee_x, &ee_y);
     if (n < 0) error("ERROR reading from socket");
 
-    if (ee_x==0.0 && ee_y ==0.0){
-        masterTerminate = 1;
-    }
-    printf("Here is the message: masterTerminate=%d  <<<<<<======>>>>>>  ee_x=%f ...... ee_y=%f\n", masterTerminate, ee_x, ee_y);
-
-    if (masterTerminate = 1)
+    printf("buffer: %s  \n", buffer);
+    if (buffer[0]=='O' && buffer[1]=='I')
     {
-        kill(pid_goal, SIGTERM);                                // Send the SIGTERM signal
-        kill(pid_obstacle, SIGTERM);
-        endwin;
-    }
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
 
-    fd1s = open(myfifo1000s,O_WRONLY);            // send status to master
-    if (fd4s == -1) {
-        perror("Error opening FIFO4");
-    }
-    sprintf(str1s, format_string1s, masterTerminate, ee_x, ee_y);
-    write(fd1s, str1s, strlen(str1s)+1); 
-    close(fd1s); 
-    printf("message: masterTerminate=%s  \n", str1s);
+        bzero(buffer,256);
+        strcpy(buffer, "101.000,41.000");
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
 
-    fd4s = open(myfifo4s,O_WRONLY);               // Send the drone position to obstacle processor
-    if (fd4s == -1) {
-        perror("Error opening FIFO4");
-    }
-    sprintf(str4s, format_string4s, reachedAllTheGoals, ee_x, ee_y);
-    write(fd4s, str4s, strlen(str4s)+1);
-    close(fd4s);
+        bzero(buffer,256);
+        n = read(sock,buffer,255);
+        if (n < 0) error("ERROR reading from socket");
+        bzero(buffer,256);
+        n = read(sock,buffer,255);
+        if (n < 0) error("ERROR reading from socket");
 
-    fd5s = open(myfifo5s,O_RDONLY);       // Open fifo
-    if (fd5s == -1) {                    // Error check
-        perror("Error opening FIFO5");
+        usleep(100);
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
+        fd6 = open(myfifo6,O_WRONLY);
+        if (fd6 == -1) {
+            perror("Error opening FIFO7");
+        }
+        write(fd6, buffer, strlen(buffer)+1);
+        close(fd6);
+        printf("buffer: %s  \n", buffer);
     }
-    read(fd5s, str5s, 80);                // Read from fifo
-    sscanf(str5s, format_string5s, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10);
-    close(fd5s); 
-
-    fd7s = open(myfifo7s,O_RDONLY);
-    if (fd7s == -1) {
-        perror("Error opening FIFO7");
-    }
-    read(fd7s, str7s, 80);
-    sscanf(str7s, format_string7s, &gx1, &gx2, &gx3, &gx4, &gx5, &gx6, &gx7, &gx8, &gx9, &gx10, &gy1, &gy2, &gy3, &gy4, &gy5, &gy6, &gy7, &gy8, &gy9, &gy10);
-    close(fd7s);
-
-    usleep(4000);
 
     bzero(buffer,256);
-    sprintf(buffer, format_buffer, ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10, oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10, gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10, gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10);
-    n = write(sock,buffer,strlen(buffer));
-    if (n < 0) error("ERROR writing to socket");
+    n = read(sock,buffer,255);
+    if (n < 0) error("ERROR reading from socket");
+
+    printf("buffer: %s  \n", buffer);
+    if (buffer[0]=='T' && buffer[1]=='I')
+    {
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
+
+        bzero(buffer,256);
+        strcpy(buffer, "101.000,41.000");
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
+
+        bzero(buffer,256);
+        n = read(sock,buffer,255);
+        if (n < 0) error("ERROR reading from socket");
+        bzero(buffer,256);
+        n = read(sock,buffer,255);
+        if (n < 0) error("ERROR reading from socket");
+
+        usleep(100);
+        n = write(sock,buffer,strlen(buffer));
+        usleep(100);
+        fd9 = open(myfifo9,O_WRONLY);
+        if (fd9 == -1) {
+            perror("Error opening FIFO7");
+        }
+        write(fd9, buffer, strlen(buffer)+1);
+        close(fd9);
+        printf("buffer: %s  \n", buffer);
+    }
+
+
+
+    // sscanf(buffer, format_string5s, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10);
+    // if (ee_x==0.0 && ee_y ==0.0){
+    //     masterTerminate = 1;
+    // }
+    // printf("Here is the message: masterTerminate=%d  <<<<<<======>>>>>>  ee_x=%f ...... ee_y=%f\n", masterTerminate, ee_x, ee_y);
+
+    // if (masterTerminate = 1)
+    // {
+    //     kill(pid_goal, SIGTERM);                                // Send the SIGTERM signal
+    //     kill(pid_obstacle, SIGTERM);
+    //     endwin;
+    // }
+
+    // fd1s = open(myfifo1000s,O_WRONLY);            // send status to master
+    // if (fd4s == -1) {
+    //     perror("Error opening FIFO4");
+    // }
+    // sprintf(str1s, format_string1s, masterTerminate, ee_x, ee_y);
+    // write(fd1s, str1s, strlen(str1s)+1); 
+    // close(fd1s); 
+    // printf("message: masterTerminate=%s  \n", str1s);
+
+    // fd4s = open(myfifo4s,O_WRONLY);               // Send the drone position to obstacle processor
+    // if (fd4s == -1) {
+    //     perror("Error opening FIFO4");
+    // }
+    // sprintf(str4s, format_string4s, reachedAllTheGoals, ee_x, ee_y);
+    // write(fd4s, str4s, strlen(str4s)+1);
+    // close(fd4s);
+
+    // fd5s = open(myfifo5s,O_RDONLY);       // Open fifo
+    // if (fd5s == -1) {                    // Error check
+    //     perror("Error opening FIFO5");
+    // }
+    // read(fd5s, str5s, 80);                // Read from fifo
+    // sscanf(str5s, format_string5s, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10);
+    // close(fd5s); 
+
+
+    // usleep(4000);
+
+    // bzero(buffer,256);
+    // sprintf(buffer, format_buffer, ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10, oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10, gx1, gx2, gx3, gx4, gx5, gx6, gx7, gx8, gx9, gx10, gy1, gy2, gy3, gy4, gy5, gy6, gy7, gy8, gy9, gy10);
+    // n = write(sock,buffer,strlen(buffer));
+    // if (n < 0) error("ERROR writing to socket");
 }

@@ -23,9 +23,9 @@ int main() {
     char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
     pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
 
-    // Spawn server Process
-    char *arg_list_server[] = {"/usr/bin/konsole", "-e", "./bin/server 12345", NULL};
-    pid_t pid_server = spawn("/usr/bin/konsole", arg_list_server);
+    // Spawn client Process
+    char *arg_list_client[] = {"/usr/bin/konsole", "-e", "./bin/client localhost 12345", NULL};
+    pid_t pid_client = spawn("/usr/bin/konsole", arg_list_client);
 
     fd7 = open(myfifo7,O_WRONLY);                      // Send the obstacles position to input processor
     if (fd7 == -1) {
@@ -53,15 +53,15 @@ int main() {
             printf("Program terminate requested by CLIENT ....\nEntering kill process ...");
             kill(pid_goal, SIGTERM);                                // Send the SIGTERM signal
             kill(pid_obstacle, SIGTERM);
-            kill(pid_server, SIGTERM);
+            kill(pid_client, SIGTERM);
 
             endwin();
 
             // Wait for the processes to finish
-            int status_obstacle, status_goal, status_server;
+            int status_obstacle, status_goal, status_client;
             waitpid(pid_goal, &status_goal, 0);
             waitpid(pid_obstacle, &status_obstacle, 0);
-            waitpid(pid_server, &status_server, 0);
+            waitpid(pid_client, &status_client, 0);
             
             // Perform cleanup
             endwin();

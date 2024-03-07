@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "obstacle.h": "c",
+        "court.h": "c",
+        "stdio.h": "c"
+    }
+}

@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <string.h>
+#include "./../include/master.h"
 
 float ee_x=0.0, ee_y=0.0;bool masterTerminate = 0;
 int ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10;
@@ -41,21 +42,37 @@ int main(int argc, char *argv[])
     char * myfifo4 = "/tmp/myfifo4";
     mkfifo(myfifo4, 0666);
     char str4[80];
-    char format_string4[80]="%d,%f,%f";
+    char format_string4[80]="%d,%d";
 
     int fd5;
     char * myfifo5 = "/tmp/myfifo5";
     mkfifo(myfifo5, 0666);
 
+    int fd7;
+    char * myfifo7 = "/tmp/myfifo7";
+    mkfifo(myfifo7, 0666);
+
     int fd8;
     char * myfifo8 = "/tmp/myfifo8";
     mkfifo(myfifo8, 0666);
+
     int sockfd, portno, n;
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
     char buffer[256];
+    char rbuffer[256];
+
+
+    // Spawn obstacle Process
+    char *arg_list_obstacle[] = {"/usr/bin/konsole", "-e", "./bin/obstacle", NULL};
+    pid_t pid_obstacle = spawn("/usr/bin/konsole", arg_list_obstacle);
+
+    // Spawn goal Process
+    char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
+    pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
+    
     while(1){
         server = NULL;
         while (server == NULL) {
@@ -82,40 +99,104 @@ int main(int argc, char *argv[])
             error("ERROR connecting");
         bzero(buffer,256);
 
-            fd4 = open(myfifo4,O_RDONLY);
-            if (fd4 == -1) {
-                perror("Error opening FIFO4");
-            }
-            read(fd4, buffer, 80);
-            sscanf(buffer, format_string4, &masterTerminate, &reachedAllTheGoals, &ee_x, &ee_y);        // Import the deone co_ordinates
-            close(fd4);
 
+        strcpy(buffer, "OI");
         n = write(sockfd,buffer,strlen(buffer));
         if (n < 0) 
             error("ERROR writing to socket");
-        bzero(buffer,256);
-        n = read(sockfd,buffer,255);
+        
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        printf("bufferread1: %s  \n", buffer);
         if (n < 0) 
             error("ERROR reading from socket");
-        // sscanf(buffer, format_buffer, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10, &gx1, &gx2, &gx3, &gx4, &gx5, &gx6, &gx7, &gx8, &gx9, &gx10, &gy1, &gy2, &gy3, &gy4, &gy5, &gy6, &gy7, &gy8, &gy9, &gy10);
-        
-        fd5 = open(myfifo5,O_WRONLY);                      // Send the obstacles position to input processor
+
+        // usleep(100);
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        n = write(sockfd,rbuffer,strlen(rbuffer));
+        if (n < 0) 
+            error("ERROR reading from socket");
+        printf("bufferread2: %s  \n", rbuffer);
+        fd4 = open(myfifo4,O_WRONLY);                                                               // Write window siza to obstacle
+        if (fd4 == -1) {
+            perror("Error opening FIFO4");
+        }
+        write(fd4, rbuffer, 80);
+        close(fd4);                                                                                 // ...
+
+        bzero(buffer,256);
+        // strcpy(buffer, "O[2]12.00,34.00|23.00,0.11");
+        fd5 = open(myfifo5,O_RDONLY);                                                               // Recive the obstacles position
         if (fd5 == -1) {
             perror("Error opening FIFO5");
         }
-        // sprintf(str5, format_string5, ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10, oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10);
-        write(fd5, buffer, strlen(buffer)+1);
-        close(fd5);
+        read(fd5, buffer, 255);
+        close(fd5);                                                                                 // ...
+        n = write(sockfd,buffer,strlen(buffer));                                                    // Write the obstacles to server SOCKET
 
-        fd8 = open(myfifo8,O_WRONLY);                      // Send the obstacles position to force processor
+        // usleep(100);
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        if (n < 0) 
+            error("ERROR reading from socket");
+        printf("bufferread3: %s  \n", rbuffer);
+
+
+
+
+
+        strcpy(buffer, "TI");
+        n = write(sockfd,buffer,strlen(buffer));
+        if (n < 0) 
+            error("ERROR writing to socket");
+        
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        printf("bufferread1: %s  \n", buffer);
+        if (n < 0) 
+            error("ERROR reading from socket");
+
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        n = write(sockfd,rbuffer,strlen(rbuffer));
+        if (n < 0) 
+            error("ERROR reading from socket");
+        printf("bufferread2: %s  \n", rbuffer);
+        fd7 = open(myfifo7,O_WRONLY);                                                               // Write window siza to goals
+        if (fd7 == -1) {
+            perror("Error opening FIFO7");
+        }
+        write(fd7, rbuffer, 80);
+        close(fd7);                                                                                 // ...
+
+        bzero(buffer,256);
+        // strcpy(buffer, "O[2]12.00,34.00|23.00,0.11");
+        fd8 = open(myfifo8,O_RDONLY);                                                               // Recive the goals position
         if (fd8 == -1) {
             perror("Error opening FIFO8");
         }
-        // sprintf(str8, format_string8, ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10, oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10);
-        write(fd8, buffer, strlen(buffer)+1);
-        close(fd8);
+        read(fd8, buffer, 255);
+        close(fd8);                                                                                 // ...
+        n = write(sockfd,buffer,strlen(buffer));                                                    // Write the goals to server SOCKET
+
+        // usleep(100);
+        bzero(rbuffer,256);
+        n = read(sockfd,rbuffer,255);
+        if (n < 0) 
+            error("ERROR reading from socket");
+        printf("bufferread3: %s  \n", rbuffer);
+
+        // fd8 = open(myfifo8,O_WRONLY);                      // Send the obstacles position to force processor
+        // if (fd8 == -1) {
+        //     perror("Error opening FIFO8");
+        // }
+        // // sprintf(str8, format_string8, ox1, ox2, ox3, ox4, ox5, ox6, ox7, ox8, ox9, ox10, oy1, oy2, oy3, oy4, oy5, oy6, oy7, oy8, oy9, oy10);
+        // write(fd8, buffer, strlen(buffer)+1);
+        // close(fd8);
 
         // printf("%s\n",buffer);
+        sleep(10);
     }
     // return 0;
 }
