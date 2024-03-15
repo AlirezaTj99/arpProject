@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "force.h": "c",
+        "input.h": "c",
+        "drone.h": "c",
+        "court.h": "c",
+        "unistd.h": "c",
+        "obstacle.h": "c"
+    }
+}
