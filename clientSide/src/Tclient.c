@@ -43,45 +43,6 @@ void error(char *msg)
     perror(msg);
 }
 
-// void block_signal(int signal)
-// {
-//     /*
-//     A function that blocks the signal specified in the function argument.
-//     */
-
-//     // Create a set of signals to block
-//     sigset_t sigset;
-
-//     // Initialize the set to 0
-//     sigemptyset(&sigset);
-
-//     // Add the signal to the set
-//     sigaddset(&sigset, signal);
-
-//     // Add the signals in the set to the process' blocked signals
-//     sigprocmask(SIG_BLOCK, &sigset, NULL);
-// }
-
-
-// void unblock_signal(int signal)
-// {
-//     /*
-//     A function that unblocks the signal specified in the function argument.
-//     */
-   
-//     // Create a set of signals to unblock
-//     sigset_t sigset;
-
-//     // Initialize the set to 0
-//     sigemptyset(&sigset);
-
-//     // Add the signal to the set
-//     sigaddset(&sigset, signal);
-
-//     // Remove the signals in the set from the process' blocked signals
-//     sigprocmask(SIG_UNBLOCK, &sigset, NULL);
-// }
-
 int main(int argc, char *argv[])
 {
 
@@ -111,14 +72,6 @@ int main(int argc, char *argv[])
     char buffer[1024];
     char rbuffer[1024];
 
-
-    // // Spawn obstacle Process
-    // char *arg_list_obstacle[] = {"/usr/bin/konsole", "-e", "./bin/obstacle", NULL};
-    // pid_t pid_obstacle = spawn("/usr/bin/konsole", arg_list_obstacle);
-
-    // // Spawn goal Process
-    // char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
-    // pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
     
     while(1){
         server = NULL;
@@ -192,59 +145,7 @@ int main(int argc, char *argv[])
             error("ERROR reading from socket");
         printf("readObstacleEcho: %s  \n", rbuffer);
 
-
-
-
-
-        // strcpy(buffer, "OI");
-        // n = write(sockfd,buffer,strlen(buffer));
-        // if (n < 0) 
-        //     error("ERROR writing to socket");
-
-        // bzero(rbuffer,sizeof(rbuffer));
-        // // usleep(100);
-        // n = read(sockfd,rbuffer,sizeof(rbuffer));
-        // usleep(100);
-        // printf("readIO Feedback: %s  \n", buffer);
-        // if (n < 0) 
-        //     error("ERROR reading from socket");
-        // //........................................................................................................................................................
-        // bzero(rbuffer,sizeof(rbuffer));
-        // n = read(sockfd,rbuffer,sizeof(rbuffer));
-        // printf("readWindowSize: %s  \n", rbuffer);
-        // n = write(sockfd,rbuffer,strlen(rbuffer));
-        // if (n < 0) 
-        //     error("ERROR reading from socket");
-        // usleep(100);
-        // // fd7 = open(myfifo7,O_WRONLY);                                                               // Write window siza to goals
-        // // if (fd7 == -1) {
-        // //     perror("Error opening FIFO7");
-        // // }
-        // // write(fd7, rbuffer, 80);
-        // // close(fd7);                                                                                 // ...
-
-        // bzero(rbuffer,sizeof(rbuffer));
-        // bzero(buffer,sizeof(rbuffer));
-        // strcpy(buffer, "O[10]12.00,20.00|23.00,11.00|56.00,5.00|98.00,13.00|31.00,24.00|46.00,21.00|75.00,2.00|38.00,16.00|42.00,23.00|19.00,14.00");
-        // // fd8 = open(myfifo8,O_RDONLY);                                                               // Recive the goals position
-        // // if (fd8 == -1) {
-        // //     perror("Error opening FIFO8");
-        // // }
-        // // read(fd8, buffer, 255);
-        // // close(fd8);                                                                                 // ...
-        // //.......................................................................................................................................................
-        // n = write(sockfd,buffer,strlen(buffer));                                                    // Write the obstacles to server SOCKET
-
-        // usleep(10000);
-        // n = read(sockfd,rbuffer,sizeof(rbuffer));
-        // if (n < 0) 
-        //     error("ERROR reading from socket");
-        // printf("readObstacleEcho: %s  \n", rbuffer);
-
-        
-
-        // printf("%s\n",buffer);
         sleep(10);
     }
-    // return 0;
+    return 0;
 }
