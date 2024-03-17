@@ -38,6 +38,23 @@ int main()
     char str9[1024];
     char format_string9[1024]="T[10]%f,%f|%f,%f|%f,%f|%f,%f|%f,%f|%f,%f|%f,%f|%f,%f|%f,%f|%f,%f";
 
+    // int fd4;
+    // char * myfifo4 = "/tmp/myfifo4";
+    // mkfifo(myfifo4, 0666);
+    // char format_string4[80]="%d,%d,%f,%f";
+
+    // int fd5;
+    // char * myfifo5 = "/tmp/myfifo5";
+    // mkfifo(myfifo5, 0666);
+    // char str5[160];
+    // char format_string5[160]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
+    // int fd10;
+    // char * myfifo10 = "/tmp/myfifo10";
+    // mkfifo(myfifo10, 0666);
+    // char str10[80];
+    // char format_string10[80]="%d,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+
     // Utility variable to avoid trigger resize event on launch
     int first_resize = TRUE;
 
@@ -128,6 +145,56 @@ int main()
         sscanf(str3, format_string3, &reachedGoal1, &reachedGoal2, &reachedGoal3, &reachedGoal4, &reachedGoal5, &reachedGoal6, &reachedGoal7, &reachedGoal8, &reachedGoal9, &reachedGoal10, &reachedAllTheGoals, &ee_x, &ee_y, &vx, &vy, &ox1, &oy1, &ox2, &oy2, &ox3, &oy3, &ox4, &oy4, &ox5, &oy5, &ox6, &oy6, &ox7, &oy7, &ox8, &oy8, &ox9, &oy9, &ox10, &oy10, &gx1, &gy1, &gx2, &gy2, &gx3, &gy3, &gx4, &gy4, &gx5, &gy5, &gx6, &gy6, &gx7, &gy7, &gx8, &gy8, &gx9, &gy9, &gx10, &gy10);
         close(fd3);
 
+        // if (reachedAllTheGoals)
+        // {
+        //     fd6 = open(myfifo6,O_RDONLY);
+        //     if (fd6 == -1) {
+        //         perror("Error opening FIFO6");
+        //     }
+        //     read(fd6, str6, sizeof(str6)); 
+        //     sscanf(str6, format_string6, &ox1, &oy1, &ox2, &oy2, &ox3, &oy3, &ox4, &oy4, &ox5, &oy5, &ox6, &oy6, &ox7, &oy7, &ox8, &oy8, &ox9, &oy9, &ox10, &oy10);
+        //     close(fd6);
+
+        //     fd9 = open(myfifo9,O_RDONLY);
+        //     if (fd9 == -1) {
+        //         perror("Error opening FIFO9");
+        //     }
+        //     read(fd9, str9, sizeof(str9)); 
+        //     sscanf(str9, format_string9, &gx1, &gy1, &gx2, &gy2, &gx3, &gy3, &gx4, &gy4, &gx5, &gy5, &gx6, &gy6, &gx7, &gy7, &gx8, &gy8, &gx9, &gy9, &gx10, &gy10);
+        //     close(fd9);
+
+        //     reachedAllTheGoals=0;
+        // }
+
+
+        // if(reachedAllTheGoals || masterTerminate)
+        // {
+        //     fd4 = open(myfifo4,O_WRONLY);               // Send the drone position to client processor (last dest: obstacle) and "masterTerminate" status
+        //     if (fd4 == -1) {
+        //         perror("Error opening FIFO4");
+        //     }
+        //     sprintf(str4, format_string4, masterTerminate, reachedAllTheGoals, ee_x, ee_y);
+        //     write(fd4, str4, strlen(str4)+1);
+        //     close(fd4);
+
+        //     fd5 = open(myfifo5,O_RDONLY);       // Open fifo
+        //     if (fd5 == -1) {                    // Error check
+        //         perror("Error opening FIFO5");
+        //     }
+        //     read(fd5, str5, 160);                // Read from fifo
+        //     sscanf(str5, format_string5, &ox1, &ox2, &ox3, &ox4, &ox5, &ox6, &ox7, &ox8, &ox9, &ox10, &oy1, &oy2, &oy3, &oy4, &oy5, &oy6, &oy7, &oy8, &oy9, &oy10, &gx1, &gx2, &gx3, &gx4, &gx5, &gx6, &gx7, &gx8, &gx9, &gx10, &gy1, &gy2, &gy3, &gy4, &gy5, &gy6, &gy7, &gy8, &gy9, &gy10);
+        //     close(fd5);                         // Close the fifo
+        // }
+        
+        // fd10 = open(myfifo10,O_RDONLY);
+        // if (fd10 == -1) {
+        //     perror("Error opening FIFO10");
+        // }
+        // read(fd10, str10, 80);
+        // sscanf(str10, format_string10, &reachedGoal1, &reachedGoal2, &reachedGoal3, &reachedGoal4, &reachedGoal5, &reachedGoal6, &reachedGoal7, &reachedGoal8, &reachedGoal9, &reachedGoal10);
+        // close(fd10);
+
+        // Update UI
         update_console_ui(&ee_x, &ee_y, &vx, &vy);
 
         usleep(1000);
