@@ -19,9 +19,9 @@ int main() {
     char *arg_list_obstacle[] = {"/usr/bin/konsole", "-e", "./bin/obstacle", NULL};
     pid_t pid_obstacle = spawn("/usr/bin/konsole", arg_list_obstacle);
 
-    // // Spawn goal Process
-    // char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
-    // pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
+    // Spawn goal Process
+    char *arg_list_goal[] = {"/usr/bin/konsole", "-e", "./bin/goal", NULL};
+    pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
 
     // Spawn client Process
     char *arg_list_client[] = {"/usr/bin/konsole", "-e", "./bin/client 127.0.0.1 9005", NULL};

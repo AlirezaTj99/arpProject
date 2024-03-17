@@ -120,22 +120,22 @@ int main(int argc, char *argv[])
         if (n < 0) 
             error("ERROR reading from socket");
         usleep(100);
-        // fd4 = open(myfifo4,O_WRONLY);                                                               // Write window siza to obstacle
-        // if (fd4 == -1) {
-        //     perror("Error opening FIFO4");
-        // }
-        // write(fd4, rbuffer, 80);
-        // close(fd4);                                                                                 // ...
+        fd7 = open(myfifo7,O_WRONLY);                                                               // Write window siza to obstacle
+        if (fd7 == -1) {
+            perror("Error opening FIFO7");
+        }
+        write(fd7, rbuffer, strlen(rbuffer));
+        close(fd7);                                                                                 // ...
 
         bzero(rbuffer,sizeof(rbuffer));
         bzero(buffer,sizeof(rbuffer));
-        strcpy(buffer, "T[10]7.00,15.00|18.00,7.00|51.00,20.00|78.00,13.00|26.00,19.00|56.00,21.00|70.00,2.00|33.00,21.00|37.00,18.00|24.00,20.00");
-        // fd5 = open(myfifo5,O_RDONLY);                                                               // Recive the obstacles position
-        // if (fd5 == -1) {
-        //     perror("Error opening FIFO5");
-        // }
-        // read(fd5, buffer, 255);
-        // close(fd5);                                                                                 // ...
+
+        fd8 = open(myfifo8,O_RDONLY);                                                               // Recive the obstacles position
+        if (fd8 == -1) {
+            perror("Error opening FIFO8");
+        }
+        read(fd8, buffer, sizeof(buffer));
+        close(fd8);                                                                                 // ...
         //.......................................................................................................................................................
         n = write(sockfd,buffer,strlen(buffer));                                                    // Write the obstacles to server SOCKET
 
@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
             error("ERROR reading from socket");
         printf("readObstacleEcho: %s  \n", rbuffer);
 
-        sleep(30);
+        sleep(10);
     }
     return 0;
 }
