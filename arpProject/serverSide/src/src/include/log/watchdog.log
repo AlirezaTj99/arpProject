@@ -1,0 +1,154 @@
+                     DATE/TIME                   MESSAGE/VARIABLE                               DATA
+  15-03-2024 12:58:36:740:463                          server pid                              10716
+  15-03-2024 12:58:36:742:320                              UI pid                              10721
+  15-03-2024 12:58:36:742:435                           drone pid                              10713
+  15-03-2024 12:58:36:743:365                        watchdog pid                              10712
+  15-03-2024 12:58:36:743:494      sent watchdog pid to processes                                 -
+  15-03-2024 12:58:37:743:767                         current pid                              10716
+  15-03-2024 12:58:37:743:866               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:37:844:238        received response from 10716                                 -
+  15-03-2024 12:58:37:844:333                         current pid                              10721
+  15-03-2024 12:58:37:844:383               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:37:944:871        received response from 10721                                 -
+  15-03-2024 12:58:37:944:971                         current pid                              10713
+   15-03-2024 12:58:37:945:54               sent SIGUSR1 to 10713                                 -
+    15-03-2024 12:58:38:46:47        received response from 10713                                 -
+   15-03-2024 12:58:38:46:152                         current pid                              10716
+   15-03-2024 12:58:38:46:235               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:38:147:207        received response from 10716                                 -
+  15-03-2024 12:58:38:147:300                         current pid                              10721
+  15-03-2024 12:58:38:147:349               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:38:248:158        received response from 10721                                 -
+  15-03-2024 12:58:38:248:338                         current pid                              10713
+  15-03-2024 12:58:38:248:422               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:38:349:525        received response from 10713                                 -
+  15-03-2024 12:58:38:349:623                         current pid                              10716
+  15-03-2024 12:58:38:349:704               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:38:450:244        received response from 10716                                 -
+  15-03-2024 12:58:38:450:346                         current pid                              10721
+  15-03-2024 12:58:38:450:396               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:38:551:190        received response from 10721                                 -
+  15-03-2024 12:58:38:551:289                         current pid                              10713
+  15-03-2024 12:58:38:551:371               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:38:652:607        received response from 10713                                 -
+  15-03-2024 12:58:38:652:713                         current pid                              10716
+  15-03-2024 12:58:38:652:795               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:38:753:283        received response from 10716                                 -
+  15-03-2024 12:58:38:753:377                         current pid                              10721
+  15-03-2024 12:58:38:753:425               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:38:854:151        received response from 10721                                 -
+  15-03-2024 12:58:38:854:215                         current pid                              10713
+  15-03-2024 12:58:38:854:299               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:38:954:937        received response from 10713                                 -
+   15-03-2024 12:58:38:955:25                         current pid                              10716
+   15-03-2024 12:58:38:955:90               sent SIGUSR1 to 10716                                 -
+   15-03-2024 12:58:39:55:774        received response from 10716                                 -
+   15-03-2024 12:58:39:55:865                         current pid                              10721
+   15-03-2024 12:58:39:55:917               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:39:156:338        received response from 10721                                 -
+  15-03-2024 12:58:39:156:431                         current pid                              10713
+  15-03-2024 12:58:39:156:514               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:39:257:302        received response from 10713                                 -
+  15-03-2024 12:58:39:257:398                         current pid                              10716
+  15-03-2024 12:58:39:257:478               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:39:358:461        received response from 10716                                 -
+  15-03-2024 12:58:39:358:554                         current pid                              10721
+  15-03-2024 12:58:39:358:603               sent SIGUSR1 to 10721                                 -
+   15-03-2024 12:58:39:459:64        received response from 10721                                 -
+  15-03-2024 12:58:39:459:156                         current pid                              10713
+  15-03-2024 12:58:39:459:239               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:39:559:914        received response from 10713                                 -
+   15-03-2024 12:58:39:560:10                         current pid                              10716
+   15-03-2024 12:58:39:560:91               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:39:560:316        received response from 10716                                 -
+  15-03-2024 12:58:39:560:417                         current pid                              10721
+  15-03-2024 12:58:39:560:464               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:39:560:698        received response from 10721                                 -
+  15-03-2024 12:58:39:560:730                         current pid                              10713
+  15-03-2024 12:58:39:560:800               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:39:661:824        received response from 10713                                 -
+  15-03-2024 12:58:39:661:882                         current pid                              10716
+  15-03-2024 12:58:39:661:964               sent SIGUSR1 to 10716                                 -
+   15-03-2024 12:58:39:763:43        received response from 10716                                 -
+  15-03-2024 12:58:39:763:101                         current pid                              10721
+  15-03-2024 12:58:39:763:153               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:39:864:365        received response from 10721                                 -
+  15-03-2024 12:58:39:864:429                         current pid                              10713
+  15-03-2024 12:58:39:864:514               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:39:965:494        received response from 10713                                 -
+  15-03-2024 12:58:39:965:541                         current pid                              10716
+  15-03-2024 12:58:39:965:624               sent SIGUSR1 to 10716                                 -
+   15-03-2024 12:58:40:67:124        received response from 10716                                 -
+   15-03-2024 12:58:40:67:284                         current pid                              10721
+   15-03-2024 12:58:40:67:463               sent SIGUSR1 to 10721                                 -
+   15-03-2024 12:58:40:68:714        received response from 10721                                 -
+   15-03-2024 12:58:40:68:832                         current pid                              10713
+   15-03-2024 12:58:40:69:144               sent SIGUSR1 to 10713                                 -
+   15-03-2024 12:58:40:170:63        received response from 10713                                 -
+  15-03-2024 12:58:40:170:141                         current pid                              10716
+  15-03-2024 12:58:40:170:229               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:40:270:665        received response from 10716                                 -
+  15-03-2024 12:58:40:270:757                         current pid                              10721
+  15-03-2024 12:58:40:270:805               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:40:372:865        received response from 10721                                 -
+  15-03-2024 12:58:40:372:958                         current pid                              10713
+   15-03-2024 12:58:40:373:40               sent SIGUSR1 to 10713                                 -
+   15-03-2024 12:58:40:474:28        received response from 10713                                 -
+  15-03-2024 12:58:40:474:133                         current pid                              10716
+  15-03-2024 12:58:40:474:216               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:40:574:994        received response from 10716                                 -
+  15-03-2024 12:58:40:575:121                         current pid                              10721
+  15-03-2024 12:58:40:575:214               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:40:675:741        received response from 10721                                 -
+  15-03-2024 12:58:40:675:823                         current pid                              10713
+  15-03-2024 12:58:40:675:892               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:40:776:559        received response from 10713                                 -
+  15-03-2024 12:58:40:776:609                         current pid                              10716
+  15-03-2024 12:58:40:776:675               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:40:877:698        received response from 10716                                 -
+  15-03-2024 12:58:40:877:803                         current pid                              10721
+  15-03-2024 12:58:40:877:886               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:40:978:983        received response from 10721                                 -
+   15-03-2024 12:58:40:979:69                         current pid                              10713
+  15-03-2024 12:58:40:979:131               sent SIGUSR1 to 10713                                 -
+     15-03-2024 12:58:41:80:4        received response from 10713                                 -
+   15-03-2024 12:58:41:80:100                         current pid                              10716
+   15-03-2024 12:58:41:80:145               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:41:180:706        received response from 10716                                 -
+  15-03-2024 12:58:41:180:791                         current pid                              10721
+  15-03-2024 12:58:41:180:856               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:41:281:513        received response from 10721                                 -
+  15-03-2024 12:58:41:281:605                         current pid                              10713
+  15-03-2024 12:58:41:281:687               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:41:382:584        received response from 10713                                 -
+  15-03-2024 12:58:41:382:682                         current pid                              10716
+  15-03-2024 12:58:41:382:717               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:41:483:717        received response from 10716                                 -
+  15-03-2024 12:58:41:483:773                         current pid                              10721
+  15-03-2024 12:58:41:483:857               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:41:584:802        received response from 10721                                 -
+  15-03-2024 12:58:41:584:852                         current pid                              10713
+  15-03-2024 12:58:41:584:927               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:41:685:947        received response from 10713                                 -
+  15-03-2024 12:58:41:685:993                         current pid                              10716
+   15-03-2024 12:58:41:686:67               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:41:786:493        received response from 10716                                 -
+  15-03-2024 12:58:41:786:542                         current pid                              10721
+  15-03-2024 12:58:41:786:630               sent SIGUSR1 to 10721                                 -
+  15-03-2024 12:58:41:787:541        received response from 10721                                 -
+  15-03-2024 12:58:41:787:578                         current pid                              10713
+  15-03-2024 12:58:41:787:641               sent SIGUSR1 to 10713                                 -
+   15-03-2024 12:58:41:888:16        received response from 10713                                 -
+   15-03-2024 12:58:41:888:70                         current pid                              10716
+  15-03-2024 12:58:41:888:146               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:41:989:275        received response from 10716                                 -
+  15-03-2024 12:58:41:989:330                         current pid                              10721
+  15-03-2024 12:58:41:989:415               sent SIGUSR1 to 10721                                 -
+   15-03-2024 12:58:42:41:613                    Received SIGUSR1                                 -
+   15-03-2024 12:58:42:41:653        received response from 10721                                 -
+   15-03-2024 12:58:42:41:678                         current pid                              10713
+   15-03-2024 12:58:42:41:738               sent SIGUSR1 to 10713                                 -
+  15-03-2024 12:58:42:142:454        received response from 10713                                 -
+  15-03-2024 12:58:42:142:782                         current pid                              10716
+  15-03-2024 12:58:42:142:861               sent SIGUSR1 to 10716                                 -
+  15-03-2024 12:58:42:144:231                    Received SIGUSR1                                 -
