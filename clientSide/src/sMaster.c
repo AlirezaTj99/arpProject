@@ -24,11 +24,11 @@ int main() {
     pid_t pid_goal = spawn("/usr/bin/konsole", arg_list_goal);
 
     // Spawn client Process
-    char *arg_list_client[] = {"/usr/bin/konsole", "-e", "./bin/client 192.163.0.4 3000", NULL};
+    char *arg_list_client[] = {"/usr/bin/konsole", "-e", "./bin/client 127.0.0.1 3000", NULL};
     pid_t pid_client = spawn("/usr/bin/konsole", arg_list_client);
 
     // Spawn Tclient Process
-    char *arg_list_Tclient[] = {"/usr/bin/konsole", "-e", "./bin/Tclient 192.163.0.4 3000", NULL};
+    char *arg_list_Tclient[] = {"/usr/bin/konsole", "-e", "./bin/Tclient 127.0.0.1 3000", NULL};
     pid_t pid_Tclient = spawn("/usr/bin/konsole", arg_list_Tclient);
 
     // fd7 = open(myfifo7,O_WRONLY);                      // Send the obstacles position to input processor
