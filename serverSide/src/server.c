@@ -324,74 +324,33 @@ int main(int argc, char *argv[])
 
 
         printf("buffer1: %s  \n", buffer);
-        // if (buffer[0]=='T' && buffer[1]=='I')
-        // {
-            n = write(newsockfd,buffer,strlen(buffer));
-            //......................................................................................................................
-            bzero(buffer,sizeof(buffer));
-            usleep(10000);
-            strcpy(buffer, "101.000,41.000");
-            n = write(newsockfd,buffer,strlen(buffer));
-            // usleep(100);
+        n = write(newsockfd,buffer,strlen(buffer));
+        //......................................................................................................................
+        bzero(buffer,sizeof(buffer));
+        usleep(10000);
+        strcpy(buffer, "101.000,41.000");
+        n = write(newsockfd,buffer,strlen(buffer));
+        // usleep(100);
 
-            bzero(buffer,sizeof(buffer));
-            n = read(newsockfd,buffer,sizeof(buffer));
-            if (n < 0) error("ERROR reading from socket");
-            printf("readWindowSizeEcho: %s  \n", buffer);
-            bzero(buffer,sizeof(buffer));
-            usleep(10000);
-            n = read(newsockfd,buffer,sizeof(buffer));
-            if (n < 0) error("ERROR reading from socket");
-            printf("readObstacle/Target: %s  \n", buffer);
+        bzero(buffer,sizeof(buffer));
+        n = read(newsockfd,buffer,sizeof(buffer));
+        if (n < 0) error("ERROR reading from socket");
+        printf("readWindowSizeEcho: %s  \n", buffer);
+        bzero(buffer,sizeof(buffer));
+        usleep(10000);
+        n = read(newsockfd,buffer,sizeof(buffer));
+        if (n < 0) error("ERROR reading from socket");
+        printf("readObstacle/Target: %s  \n", buffer);
 
-            n = write(newsockfd,buffer,strlen(buffer));
-            fd6 = open(myfifo6,O_WRONLY);
-            if (fd6 == -1) {
-                perror("Error opening FIFO7");
-            }
-            write(fd6, buffer, strlen(buffer)+1);
-            close(fd6);
-            printf("write is done  \n");
-        // }
+        n = write(newsockfd,buffer,strlen(buffer));
+        fd6 = open(myfifo6,O_WRONLY);
+        if (fd6 == -1) {
+            perror("Error opening FIFO7");
+        }
+        write(fd6, buffer, strlen(buffer)+1);
+        close(fd6);
+        printf("write is done  \n");
 
-        // if (buffer[0]=='O' && buffer[1]=='I')
-        // {
-        //     sleep(1);
-        //     n = write(newsockfd,buffer,strlen(buffer));
-        //     //......................................................................................................................
-        //     bzero(buffer,sizeof(buffer));
-        //     usleep(10000);
-        //     strcpy(buffer, "101.000,41.000");
-        //     n = write(newsockfd,buffer,strlen(buffer));
-        //     // usleep(100);
-
-        //     bzero(buffer,sizeof(buffer));
-        //     n = read(newsockfd,buffer,sizeof(buffer));
-        //     if (n < 0) error("ERROR reading from socket");
-        //     printf("readWindowSizeEcho: %s  \n", buffer);
-        //     bzero(buffer,sizeof(buffer));
-        //     usleep(10000);
-        //     n = read(newsockfd,buffer,sizeof(buffer));
-        //     if (n < 0) error("ERROR reading from socket");
-        //     printf("readObstacle: %s  \n", buffer);
-
-        //     n = write(newsockfd,buffer,strlen(buffer));
-        //     // fd9 = open(myfifo9,O_WRONLY);
-        //     // if (fd9 == -1) {
-        //     //     perror("Error opening FIFO7");
-        //     // }
-        //     // write(fd9, buffer, strlen(buffer)+1);
-        //     // close(fd9);
-        //     printf("obstacle write is done  \n");
-        // }
-        usleep(100);
-
-        // fd6 = open(myfifo6,O_WRONLY);
-        // if (fd6 == -1) {
-        //     perror("Error opening FIFO7");
-        // }
-        // write(fd6, buffer, strlen(buffer)+1);
-        // close(fd6);
     }
     close(sockfd);
     return 0; 

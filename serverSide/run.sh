@@ -21,41 +21,41 @@ echo 'Started compiling'
 #     echo '  2 - inspection.c compiled successfully'
 # fi
 
-# # Compile input.c
-# gcc src/input.c -o bin/input -lncurses -lm -lrt
-# if [ $? -ne 0 ]; then
-#     echo 'Error compiling input.c'
-#     exit 1
-# else
-#     echo '  3 - input.c compiled successfully'
-# fi
+# Compile input.c
+gcc src/input.c -o bin/input -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling input.c'
+    exit 1
+else
+    echo '  3 - input.c compiled successfully'
+fi
 
-# # Compile force.c
-# gcc src/force.c -o bin/force -lncurses -lm -lrt
-# if [ $? -ne 0 ]; then
-#     echo 'Error compiling force.c'
-#     exit 1
-# else
-#     echo '  4 - force.c compiled successfully'
-# fi
+# Compile force.c
+gcc src/force.c -o bin/force -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling force.c'
+    exit 1
+else
+    echo '  4 - force.c compiled successfully'
+fi
 
-# # Compile server.c
-# gcc src/server.c -o bin/server -lncurses -lm -lrt
-# if [ $? -ne 0 ]; then
-#     echo 'Error compiling server.c'
-#     exit 1
-# else
-#     echo '  5 - server.c compiled successfully'
-# fi
+# Compile server.c
+gcc src/server.c -o bin/server -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling server.c'
+    exit 1
+else
+    echo '  5 - server.c compiled successfully'
+fi
 
-# # Compile master.c
-# gcc src/master.c -o bin/master -lncurses -lm -lrt
-# if [ $? -ne 0 ]; then
-#     echo 'Error compiling master.c'
-#     exit 1
-# else
-#     echo '  6 - master.c compiled successfully'
-# fi
+# Compile master.c
+gcc src/master.c -o bin/master -lncurses -lm -lrt
+if [ $? -ne 0 ]; then
+    echo 'Error compiling master.c'
+    exit 1
+else
+    echo '  6 - master.c compiled successfully'
+fi
 
 # Compile watchdog.c
 # gcc src/watchdog.c -o bin/watchdog -lncurses -lm -lrt
@@ -77,8 +77,7 @@ clear
 echo "Running the code ..."
 
 # Run the master process
-# ./src/make TYPE=S ADDRESS=1.2.3.4 PORT=9005 SECONDS=1
-(cd src && make TYPE=S ADDRESS=1.2.3.4 PORT=9005 SECONDS=1)
+./bin/master
 
 
 
